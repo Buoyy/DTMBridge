@@ -32,3 +32,9 @@ A spigot plugin to link Discord and Minecraft via chat channels.
 ## Known issues:
 - I know that it's currently hardcoded. I plan to add a config.yml in the future.
 - There's a lot of functionality to be added.
+
+## Features to add:
+    - Console integration 
+    - Server has started/stopped integration
+    - Player join messages
+    - and more...
