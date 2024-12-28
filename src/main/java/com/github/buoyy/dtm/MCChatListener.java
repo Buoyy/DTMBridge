@@ -15,7 +15,7 @@ public class MCChatListener implements Listener {
     @EventHandler
     public void onPlayerChat(AsyncPlayerChatEvent event) {
         if (jda == null) return;
-        channel = jda.getTextChannelById("Your channel here");
+        channel = jda.getTextChannelById("Your channel id here");
         String msg = String.format("<<%s>> %s", event.getPlayer().getDisplayName(), event.getMessage());
         channel.sendMessage(msg).queue();
     }

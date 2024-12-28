@@ -9,7 +9,7 @@ import org.jetbrains.annotations.NotNull;
 public class DiscordListener extends ListenerAdapter {
     @Override
     public void onMessageReceived(@NotNull MessageReceivedEvent event) {
-        String chatChannelId = "1322556740260204554";
+        String chatChannelId = "Your channel id here";
         if (event.getAuthor().isBot() || event.getAuthor().isSystem()) return;
         if (!event.getChannel().getId().equals(chatChannelId)) return;
         String msg = String.format("<<%s>> %s", (ChatColor.RED + event.getAuthor().getEffectiveName()), (ChatColor.GRAY + event.getMessage().getContentDisplay()));
