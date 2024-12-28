@@ -12,9 +12,10 @@ A spigot plugin to link Discord and Minecraft via chat channels.
 ## How to: Bot
 - Go to the [Discord Dev Portal](https://discord.com/developers/docs/intro)
 - Make an Application and configure the bot with Public Intent And Message Content
-- Make OAuth2 Link with message reading and writing permissions
+- Make OAuth2 Link with message reading-writing permissions and bot 
+- Set install as Guild Install
 - Copy bot token
-- Invite bot to desired Server
+- Authorise and invite bot to desired Server
 - See the [JDA Wiki](https://jda.wiki/) for more details
 
 ## How to: Configuration
