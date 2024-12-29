@@ -44,7 +44,10 @@ public final class Main extends JavaPlugin {
             getLogger().info("Initialised bot successfully.");
             guild = bot.getGuildById(guildID);
             channel = bot.getTextChannelById(channelID);
-            bot.addEventListener(new DiscordListener(channel));
+            
+            bot.addEventListener(new DiscordListener(guild, channel));
+        getServer().getPluginManager().registerEvents(new MCChatListener(guild, channel), this);
+
 
         } catch (InvalidTokenException e) {
             getLogger().severe("Invalid bot token!");
@@ -53,8 +56,6 @@ public final class Main extends JavaPlugin {
             getLogger().severe("Couldn't load bot: " + e.getMessage());
             getPluginLoader().disablePlugin(this);
         }
-
-
     }
 
     @Override
