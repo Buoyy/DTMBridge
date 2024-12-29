@@ -11,6 +11,7 @@ A spigot plugin to link Discord and Minecraft via chat channels.
 
 ## How to: Bot
 - Go to the [Discord Dev Portal](https://discord.com/developers/docs/intro)
+- Enable Message Content Intent in Bot
 - See the [JDA Wiki](https://jda.wiki/using-jda/getting-started/#creating-a-discord-bot) to set up the bot
 - Copy bot token
 - Authorise and invite bot to desired Server
