@@ -1,0 +1,7 @@
+#Your chosen discord bot's token goes here. Don't share it with ANYONE.
+bot-token: ""
+#The Discord server to connect to. This setting helps when you have
+#the same bot in multiple servers.
+server-id: ""
+#The channel to write to and read messages from.
+channel-id: ""
