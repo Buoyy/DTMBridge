@@ -12,7 +12,7 @@ public final class Main extends JavaPlugin {
     @Override
     public void onEnable() {
         // Plugin startup logic
-        token = "Your bot token here";
+        token = "token";
         getLogger().info("Starting plugin..");
         try {
             bot = JDABuilder
