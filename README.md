@@ -16,20 +16,20 @@ A spigot plugin to link Discord and Minecraft via chat channels.
 - Authorise and invite bot to desired Server
 
 
-## How to: Configuration
-- Paste bot token in Main.java at correct location
-- Paste chosen Channel ID in DiscordListener.java on line 12
-- Do the same for MCChatListener.java on line 18
+## How to: Build
+- Clone the project 
 - run "mvn clean package" in the root directory of project (with pom.xml)
 
 ## How to: Finalisation
 - Copy/Cut dtm-bridge-1.0-SNAPSHOT.jar from target directory
 - Paste in your Spigot server's plugins directory
 - Run the server
-- Hope it works
+- Copy Server ID, Channel ID, Bot token and paste into the config.
+- Restart server
+- Hope it works.
 
 ## Known issues:
-- I know that it's currently hardcoded. I plan to add a config.yml in the future.
+- Config needs more refining.
 - There's a lot of functionality to be added.
 
 ## Features to add:
