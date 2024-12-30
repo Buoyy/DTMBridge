@@ -76,7 +76,6 @@ public class Manager {
         jda.addEventListener(new DiscordListener(guild, channel));
     }
     
-    // TODO: Add Join and Leave listeners
     public void registerMCEvents() {
         plugin.getServer().getPluginManager().registerEvents(new MCChatListener(guild, channel), plugin);
     }
