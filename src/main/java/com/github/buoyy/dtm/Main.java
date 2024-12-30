@@ -11,7 +11,9 @@ public class Main extends JavaPlugin {
         manager = new Manager(this);
         if (!manager.initJDA()) {
             getLogger().severe("Try editing the config. ");
-            getLogger().severe("Then use /dtmreload");
+            getLogger().severe("Then reload the server.");
+            getPluginLoader().disablePlugin(this);
+            return;
         }
         manager.registerDiscordEvents();
         manager.registerMCEvents();
