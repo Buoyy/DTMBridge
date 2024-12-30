@@ -1,4 +1,4 @@
-package com.github.buoyy.dtm.discord;
+package com.github.buoyy.dtm.listeners.discord;
 
 import net.dv8tion.jda.api.entities.channel.concrete.TextChannel;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
