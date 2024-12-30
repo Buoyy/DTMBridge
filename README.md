@@ -1,6 +1,10 @@
 # DTMBridge
 A spigot plugin to link Discord and Minecraft via chat channels.
 
+## Features:
+- Discord channel to Minecraft chat linkage
+- Commands: /dtminfo;
+
 ## Prerequisites:
 - A Discord Server
 - Your own Discord bot 
