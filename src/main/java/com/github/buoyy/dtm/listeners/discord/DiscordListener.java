@@ -8,7 +8,7 @@ import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.jetbrains.annotations.NotNull;
 
-//ListenerAdapter for listening to message event
+// Send messages in the Minecraft server chat
 public class DiscordListener extends ListenerAdapter {
 
     private TextChannel channel;
@@ -25,7 +25,7 @@ public class DiscordListener extends ListenerAdapter {
         if (guild == null) return;
         if (channel == null) return;
         if (!event.getChannel().equals(channel)) return; // Channel check
-        String msg = String.format("<<%s>> %s", (ChatColor.GREEN + event.getAuthor().getEffectiveName()), (ChatColor.AQUA + event.getMessage().getContentDisplay())); //Will change colouring later
+        String msg = String.format("%s %s", (ChatColor.GREEN + "" + ChatColor.BOLD + "<" + event.getAuthor().getEffectiveName() + ">:"), (ChatColor.AQUA + event.getMessage().getContentDisplay())); //Will change colouring later
         Bukkit.broadcastMessage(msg); 
     }
 }
