@@ -10,10 +10,12 @@ public class Main extends JavaPlugin {
         saveDefaultConfig();
         manager = new Manager(this);
         if (!manager.initJDA()) {
-            getPluginLoader().disablePlugin(this);
+            getLogger().severe("Try editing the config. ");
+            getLogger().severe("Then use /dtmreload");
         }
         manager.registerDiscordEvents();
         manager.registerMCEvents();
+        manager.registerMCCommands();
     }
     
     @Override

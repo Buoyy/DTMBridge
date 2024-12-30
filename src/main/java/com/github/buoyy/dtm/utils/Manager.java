@@ -10,6 +10,7 @@ import net.dv8tion.jda.api.requests.GatewayIntent;
 
 import com.github.buoyy.dtm.listeners.discord.DiscordListener;
 import com.github.buoyy.dtm.listeners.mc.MCChatListener;
+import com.github.buoyy.dtm.commands.CommandInfo;
 
 public class Manager {
 
@@ -77,5 +78,10 @@ public class Manager {
     // TODO: Add Join and Leave listeners
     public void registerMCEvents() {
         plugin.getServer().getPluginManager().registerEvents(new MCChatListener(guild, channel), plugin);
+    }
+    
+    // TODO: Add more useful commands to connect player with plugin
+    public void registerMCCommands() {
+        plugin.getCommand("dtminfo").setExecutor(new CommandInfo());
     }
 }
