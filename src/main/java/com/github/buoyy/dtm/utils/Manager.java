@@ -43,6 +43,7 @@ public class Manager {
             plugin.getLogger().severe("The guild or channel ID is invalid.");
             return false;
         }
+        plugin.getLogger().info("Discord server and channel were linked successfully with plugin.");
         plugin.getLogger().info("Bot was initialised successfully.");
         return true;
         
