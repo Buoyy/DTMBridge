@@ -13,7 +13,7 @@ A spigot plugin to link Discord and Minecraft via chat channels.
 - Your own Discord bot 
 - A Spigot/Spigot fork server
 - Minecraft
-- Apache Maven
+- Apache Maven (if building from source)
 - Dev access on the Discord Server
 
 ## How to: Bot
@@ -38,9 +38,9 @@ A spigot plugin to link Discord and Minecraft via chat channels.
 
 ## Known issues:
 - Config needs more refining.
-- There's a lot of functionality to be added.
+- There's a bit more functionality to be added.
 
 ## Features to add:
 - Console integration 
-- Server has started/stopped integration
+- Customisability of info messages (like server start, advancement etc) through config
 - and more...
