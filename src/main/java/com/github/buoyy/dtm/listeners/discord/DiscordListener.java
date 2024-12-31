@@ -11,9 +11,9 @@ import org.jetbrains.annotations.NotNull;
 // Send messages in the Minecraft server chat
 public class DiscordListener extends ListenerAdapter {
 
-    private TextChannel channel;
-    private Guild guild;
-    
+    private final TextChannel channel;
+    private final Guild guild;
+
     public DiscordListener(Guild guild, TextChannel channel) {
         this.guild = guild;
         this.channel = channel;
@@ -21,11 +21,16 @@ public class DiscordListener extends ListenerAdapter {
 
     @Override
     public void onMessageReceived(@NotNull MessageReceivedEvent event) {
-        if (event.getAuthor().isBot() || event.getAuthor().isSystem()) return; //Return if message is from bot or system; could cause infinite loop if not used 
-        if (guild == null) return;
-        if (channel == null) return;
-        if (!event.getChannel().equals(channel)) return; // Channel check
-        String msg = String.format("%s %s", (ChatColor.GREEN + "" + ChatColor.BOLD + "<" + event.getAuthor().getEffectiveName() + ">:"), (ChatColor.AQUA + event.getMessage().getContentDisplay())); //Will change colouring later
-        Bukkit.broadcastMessage(msg); 
+        if (event.getAuthor().isBot() || event.getAuthor().isSystem())
+            return; //Return if message is from bot or system; could cause infinite loop if not used
+        if (nullCheck()) {
+            if (!event.getChannel().equals(channel)) return; // Channel check
+            String msg = String.format("%s %s", (ChatColor.GREEN + "" + ChatColor.BOLD + "<" + event.getAuthor().getEffectiveName() + ">:"), (ChatColor.AQUA + event.getMessage().getContentDisplay())); //Will change colouring later
+            Bukkit.broadcastMessage(msg);
+        }
+    }
+
+    private boolean nullCheck() {
+        return !(guild == null || channel == null);
     }
 }

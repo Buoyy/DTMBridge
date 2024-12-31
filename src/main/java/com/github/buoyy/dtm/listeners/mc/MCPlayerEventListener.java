@@ -2,19 +2,22 @@ package com.github.buoyy.dtm.listeners.mc;
 
 import net.dv8tion.jda.api.entities.channel.concrete.TextChannel;
 import net.dv8tion.jda.api.entities.Guild;
+import org.bukkit.advancement.AdvancementDisplay;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.AsyncPlayerChatEvent;
+import org.bukkit.event.player.PlayerAdvancementDoneEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
 
 // Send messages in Discord for player chats in Minecraft
-public class MCChatListener implements Listener
+// Sends message on Discord chat, player join/leave and player advancement
+public class MCPlayerEventListener implements Listener
 {
-    private TextChannel channel;
-    private Guild guild;
+    private final TextChannel channel;
+    private final Guild guild;
 
-    public MCChatListener(Guild guild, TextChannel channel) 
+    public MCPlayerEventListener(Guild guild, TextChannel channel)
     {
         this.guild = guild;
         this.channel = channel;
@@ -43,7 +46,7 @@ public class MCChatListener implements Listener
         }
     }
 
-    // Both have bold+italicised user name
+    // Both have bold+italicised username
     // and italicised join message
     
     // Leave message sent to Discord
@@ -52,16 +55,28 @@ public class MCChatListener implements Listener
     {
         if (nullCheck())
         {
-            String msg = String.format("***%s*** *has left the server.*", event.getPlayer().getDisplayName());
+            String msg = String.format("***%s*** *has left the server.*",
+                    event.getPlayer().getDisplayName());
         channel.sendMessage(msg).queue();
         }
     }
 
+    @EventHandler
+    public void onPlayerAdvancement(PlayerAdvancementDoneEvent event) {
+        if (nullCheck()) {
+            AdvancementDisplay display = event.getAdvancement().getDisplay();
+            if (display != null) {
+                String msg = String.format("***%s*** *has gained the advancement* ***%s*** *!*",
+                        event.getPlayer().getDisplayName(),
+                        display.getTitle());
+                channel.sendMessage(msg).queue();
+            }
+        }
+    }
     // Return true if not null
     // I kinda think we don't need the guild instance
     // here but null checks go BRRRRRRRR
     private boolean nullCheck() {
-        if (guild == null || channel == null) return false;
-        else return true;
-        }
+        return !(guild == null || channel == null);
+    }
     }

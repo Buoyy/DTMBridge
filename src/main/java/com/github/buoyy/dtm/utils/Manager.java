@@ -9,13 +9,13 @@ import net.dv8tion.jda.api.exceptions.InvalidTokenException;
 import net.dv8tion.jda.api.requests.GatewayIntent;
 
 import com.github.buoyy.dtm.listeners.discord.DiscordListener;
-import com.github.buoyy.dtm.listeners.mc.MCChatListener;
+import com.github.buoyy.dtm.listeners.mc.MCPlayerEventListener;
 import com.github.buoyy.dtm.commands.CommandInfo;
 
 public class Manager {
 
     // Define all important stuff
-    private JavaPlugin plugin;
+    private final JavaPlugin plugin;
     private JDA jda;
     private Guild guild;
     private TextChannel channel;
@@ -77,7 +77,7 @@ public class Manager {
     }
     
     public void registerMCEvents() {
-        plugin.getServer().getPluginManager().registerEvents(new MCChatListener(guild, channel), plugin);
+        plugin.getServer().getPluginManager().registerEvents(new MCPlayerEventListener(guild, channel), plugin);
     }
     
     // TODO: Add more useful commands to connect player with plugin
