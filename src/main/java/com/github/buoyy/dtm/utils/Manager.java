@@ -11,6 +11,7 @@ import net.dv8tion.jda.api.requests.GatewayIntent;
 import com.github.buoyy.dtm.listeners.discord.DiscordListener;
 import com.github.buoyy.dtm.listeners.mc.MCPlayerEventListener;
 import com.github.buoyy.dtm.commands.CommandInfo;
+import com.github.buoyy.dtm.listeners.mc.MCServerEventListener;
 
 public class Manager {
 
@@ -78,6 +79,7 @@ public class Manager {
     
     public void registerMCEvents() {
         plugin.getServer().getPluginManager().registerEvents(new MCPlayerEventListener(guild, channel), plugin);
+        plugin.getServer().getPluginManager().registerEvents(new MCServerEventListener(plugin, guild, channel), plugin);
     }
     
     // TODO: Add more useful commands to connect player with plugin
