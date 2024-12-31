@@ -5,3 +5,25 @@ bot-token: ""
 server-id: ""
 #The channel to write to and read messages from.
 channel-id: ""
+# MESSAGE CUSTOMIZATION
+# NOTE: {player} -> player name, {adv} -> advancement name
+# {msg} -> message name
+# & -> colour code operator (look up Bukkit colour codes for this)
+# NOTE: For '&', formatting goes before colour. Won't work otherwise.
+# This means that discord-msg needs to have the bold formatting code before
+# some colour code, for e.g. &l&b works. &b&l won't.
+# * * -> italicised; ** ** -> bold; *** *** -> mix of both
+# look up Discord formatting for more!
+
+# Message that will be sent from Discord to Minecraft
+discord-msg: "&l{player}:&r {msg}"
+
+# Message that will be sent from Minecraft to Discord
+mc-msg: "**{player}:** {msg}"
+
+# Following are for server start, stop and player join, quit, advancement messages
+start-msg: "Server has **started**!"
+stop-msg: "Server has **stopped**."
+join-msg: "***{player}*** *has joined the server!*"
+quit-msg: "***{player}*** *has left the server.*"
+adv-msg: "***{player}*** *has gained the advancement* ***{adv}*** *!*"

@@ -20,16 +20,28 @@ public class Manager {
     private JDA jda;
     private Guild guild;
     private TextChannel channel;
+    private final String botToken, channelID, guildID;
+    private final String joinMsg, quitMsg, advMsg;
+    private final String startMsg, stopMsg;
+    private final String mcMsg, discMsg;
 
     public Manager(JavaPlugin plugin) {
         this.plugin = plugin;
+        joinMsg = plugin.getConfig().getString("join-msg");
+        quitMsg = plugin.getConfig().getString("quit-msg");
+        advMsg = plugin.getConfig().getString("adv-msg");
+        startMsg = plugin.getConfig().getString("start-msg");
+        stopMsg = plugin.getConfig().getString("stop-msg");
+        botToken = plugin.getConfig().getString("bot-token");
+        channelID = plugin.getConfig().getString("channel-id");
+        guildID = plugin.getConfig().getString("server-id");
+        mcMsg = plugin.getConfig().getString("mc-msg");
+        discMsg = plugin.getConfig().getString("discord-msg");
     }
     
     // Grab IDs from config, try to load bot and handle exceptions otherwise
     public boolean initJDA() {
-        String botToken = plugin.getConfig().getString("bot-token");
-        String channelID = plugin.getConfig().getString("channel-id");
-        String guildID = plugin.getConfig().getString("server-id");
+
         try {
             jda = JDABuilder
                     .createLight(botToken)
@@ -74,12 +86,14 @@ public class Manager {
     
     // Might add more events
     public void registerDiscordEvents() {
-        jda.addEventListener(new DiscordListener(guild, channel));
+        jda.addEventListener(new DiscordListener(guild, channel, discMsg));
     }
     
     public void registerMCEvents() {
-        plugin.getServer().getPluginManager().registerEvents(new MCPlayerEventListener(guild, channel), plugin);
-        plugin.getServer().getPluginManager().registerEvents(new MCServerEventListener(plugin, guild, channel), plugin);
+        plugin.getServer().getPluginManager().registerEvents(new MCPlayerEventListener(guild, channel,
+                mcMsg, joinMsg, quitMsg, advMsg), plugin);
+        plugin.getServer().getPluginManager().registerEvents(new MCServerEventListener(plugin, guild, channel,
+                startMsg, stopMsg), plugin);
     }
     
     // TODO: Add more useful commands to connect player with plugin

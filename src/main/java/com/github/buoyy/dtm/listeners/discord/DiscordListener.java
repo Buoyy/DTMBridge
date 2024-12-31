@@ -13,10 +13,12 @@ public class DiscordListener extends ListenerAdapter {
 
     private final TextChannel channel;
     private final Guild guild;
+    private final String discordMsg;
 
-    public DiscordListener(Guild guild, TextChannel channel) {
+    public DiscordListener(Guild guild, TextChannel channel, String discordMsg) {
         this.guild = guild;
         this.channel = channel;
+        this.discordMsg = discordMsg;
     }
 
     @Override
@@ -25,8 +27,10 @@ public class DiscordListener extends ListenerAdapter {
             return; //Return if message is from bot or system; could cause infinite loop if not used
         if (nullCheck()) {
             if (!event.getChannel().equals(channel)) return; // Channel check
-            String msg = String.format("%s %s", (ChatColor.GREEN + "" + ChatColor.BOLD + "<" + event.getAuthor().getEffectiveName() + ">:"), (ChatColor.AQUA + event.getMessage().getContentDisplay())); //Will change colouring later
-            Bukkit.broadcastMessage(msg);
+            String msg = discordMsg.replace("{player}", event.getAuthor().getEffectiveName())
+                    .replace("{msg}", event.getMessage().getContentDisplay());
+            String formattedMsg = ChatColor.translateAlternateColorCodes('&', msg);
+            Bukkit.broadcastMessage(formattedMsg);
         }
     }
 

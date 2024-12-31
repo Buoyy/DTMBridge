@@ -13,18 +13,22 @@ public class MCServerEventListener implements Listener {
     private final Guild guild;
     private final TextChannel channel;
     private final JavaPlugin plugin;
+    private final String startMsg;
+    private final String stopMsg;
 
-    public MCServerEventListener(JavaPlugin plugin, Guild guild, TextChannel channel) {
+    public MCServerEventListener(JavaPlugin plugin, Guild guild, TextChannel channel,
+                                String startMsg, String stopMsg) {
         this.plugin = plugin;
         this.guild = guild;
         this.channel = channel;
+        this.startMsg = startMsg;
+        this.stopMsg = stopMsg;
     }
 
     @EventHandler
     public void onServerStart(ServerLoadEvent event) {
         if (nullCheck()) {
-            String msg = "Server has **started**!";
-            channel.sendMessage(msg).queue();
+            channel.sendMessage(startMsg).queue();
         }
     }
 
@@ -33,10 +37,8 @@ public class MCServerEventListener implements Listener {
     public void onPluginDisable(PluginDisableEvent event) {
         if (!nullCheck()) return;
         if (event.getPlugin().equals(plugin)) {
-            String msg = "Server has **stopped**!";
-            channel.sendMessage(msg).queue();
+            channel.sendMessage(stopMsg).queue();
         }
-
     }
     private boolean nullCheck() {
         return !(guild == null || channel == null);
