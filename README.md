@@ -2,10 +2,12 @@
 A spigot plugin to link Discord and Minecraft via chat channels.
 
 ## Features:
-- Discord channel to Minecraft chat linkage
-- Server start/stop messages 
-- Player join/leave messages
-- Player advancement messages
+- Bidirectional chat between Minecraft and Discord
+  - link a Discord text channel and a SpigotMC (or a fork) server chat channel
+- Server info messages:
+  - started/stopped 
+  - player join/leave
+  - player advancements
 - Commands: /dtminfo;
 
 ## Prerequisites:
