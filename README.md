@@ -38,8 +38,7 @@ A spigot plugin to link Discord and Minecraft via chat channels.
 - Restart server
 - Hope it works.
 
-## I updated from an older version. Config didn't get updated.
-## What do I do?
+## I updated from an older version. Config didn't get updated. What do I do?
 In such cases, 
 - Delete the current DTMBridge directory from your server's plugins directory
 - Reload/restart the server
@@ -48,10 +47,8 @@ In such cases,
 - Reload/restart the server
 
 ## Known issues:
-- Config needs more refining.
 - There's a bit more functionality to be added.
 
 ## Features to add:
 - Console integration 
-- Customisability of info messages (like server start, advancement etc) through config
 - and more...
