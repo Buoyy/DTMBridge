@@ -7,7 +7,7 @@ A spigot plugin to link Discord and Minecraft via chat channels.
 - Server info messages:
   - started/stopped 
   - player join/leave
-  - player advancements
+  - player advancements (All formats are customizable)
 - Commands: /dtminfo;
 
 ## Prerequisites:
@@ -31,12 +31,21 @@ A spigot plugin to link Discord and Minecraft via chat channels.
 - run "mvn clean package" in the root directory of project (with pom.xml)
 
 ## How to: Finalisation
-- Copy/Cut dtm-bridge-1.0-SNAPSHOT.jar from target directory
+- Copy/Cut the plugin JAR and place in your server's plugins directory.
 - Paste in your Spigot server's plugins directory
 - Run the server
 - Copy Server ID, Channel ID, Bot token and paste into the config.
 - Restart server
 - Hope it works.
+
+## I updated from an older version. Config didn't get updated.
+## What do I do?
+In such cases, 
+- Delete the current DTMBridge directory from your server's plugins directory
+- Reload/restart the server
+- Enter the newly generated DTMBridge directory
+- Paste older and newer information
+- Reload/restart the server
 
 ## Known issues:
 - Config needs more refining.
