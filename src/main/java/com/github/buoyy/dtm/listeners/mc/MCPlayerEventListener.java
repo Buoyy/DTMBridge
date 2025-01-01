@@ -88,9 +88,12 @@ public class MCPlayerEventListener implements Listener {
                     .replace("{killer}",
                 event.getEntity().getKiller().getName());
             } else {
-                dcMsg = event.getDeathMessage();
+                dcMsg = dcDeathMsg.replace("{player}",
+                event.getEntity().getName())
+                    .replace("{killer}",
+                "environmental hazards");
             }
-            channel.sendMessage(dcMsg);
+            channel.sendMessage(dcMsg).queue();
         }
     }
 
