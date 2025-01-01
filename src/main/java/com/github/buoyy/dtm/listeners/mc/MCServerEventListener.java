@@ -7,6 +7,7 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.server.ServerLoadEvent;
 import org.bukkit.event.server.PluginDisableEvent;
 import org.bukkit.plugin.java.JavaPlugin;
+import org.bukkit.configuration.file.FileConfiguration;
 
 public class MCServerEventListener implements Listener {
 
@@ -16,13 +17,12 @@ public class MCServerEventListener implements Listener {
     private final String startMsg;
     private final String stopMsg;
 
-    public MCServerEventListener(JavaPlugin plugin, Guild guild, TextChannel channel,
-                                String startMsg, String stopMsg) {
+    public MCServerEventListener(JavaPlugin plugin, Guild guild, TextChannel channel, FileConfiguration config) {
         this.plugin = plugin;
         this.guild = guild;
         this.channel = channel;
-        this.startMsg = startMsg;
-        this.stopMsg = stopMsg;
+        this.startMsg = config.getString("start-msg");
+        this.stopMsg = config.getString("stop-msg");
     }
 
     @EventHandler

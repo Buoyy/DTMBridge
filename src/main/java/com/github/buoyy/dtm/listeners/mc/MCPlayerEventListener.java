@@ -2,6 +2,8 @@ package com.github.buoyy.dtm.listeners.mc;
 
 import net.dv8tion.jda.api.entities.channel.concrete.TextChannel;
 import net.dv8tion.jda.api.entities.Guild;
+
+import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.advancement.AdvancementDisplay;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -9,24 +11,26 @@ import org.bukkit.event.player.AsyncPlayerChatEvent;
 import org.bukkit.event.player.PlayerAdvancementDoneEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
+import org.bukkit.event.entity.PlayerDeathEvent;
 
 // Send messages in Discord for player chats in Minecraft
 // Sends message on Discord chat, player join/leave and player advancement
 public class MCPlayerEventListener implements Listener {
     private final TextChannel channel;
     private final Guild guild;
-    private final String mcMsg;
+    private final String mcChatMsg;
     private final String joinMsg;
     private final String quitMsg;
     private final String advMsg;
-
-    public MCPlayerEventListener(Guild guild, TextChannel channel, String mcMsg, String joinMsg, String quitMsg, String advMsg) {
+    private final String dcDeathMsg;
+    public MCPlayerEventListener(Guild guild, TextChannel channel, FileConfiguration config) {
         this.guild = guild;
         this.channel = channel;
-        this.mcMsg = mcMsg;
-        this.joinMsg = joinMsg;
-        this.quitMsg = quitMsg;
-        this.advMsg = advMsg;
+        this.mcChatMsg = config.getString("mc-chat-msg");
+        this.joinMsg = config.getString("join-msg");
+        this.quitMsg = config.getString("quit-msg");
+        this.advMsg = config.getString("adv-msg");
+        this.dcDeathMsg = config.getString("dc-death-msg");
     }
 
     // Send message to the assigned Discord TextChannel
@@ -34,7 +38,7 @@ public class MCPlayerEventListener implements Listener {
     public void onPlayerChat(AsyncPlayerChatEvent event) {
         if (nullCheck()) {
             // Username is to be bold
-            String msg = mcMsg.replace("{player}",
+            String msg = mcChatMsg.replace("{player}",
                     event.getPlayer().getDisplayName())
                             .replace("{msg}", event.getMessage());
             channel.sendMessage(msg).queue();
@@ -50,9 +54,6 @@ public class MCPlayerEventListener implements Listener {
             channel.sendMessage(msg).queue();
         }
     }
-
-    // Both have bold+italicised username
-    // and italicised join message
 
     // Leave message sent to Discord
     @EventHandler
@@ -74,6 +75,22 @@ public class MCPlayerEventListener implements Listener {
                         .replace("{adv}", display.getTitle());
                 channel.sendMessage(msg).queue();
             }
+        }
+    }
+    
+    @EventHandler
+    public void onPlayerDeath(PlayerDeathEvent event) {
+        if (nullCheck()) {
+            String dcMsg;
+            if (event.getEntity().getKiller() != null) {
+                dcMsg = dcDeathMsg.replace("{player}",
+                event.getEntity().getName())
+                    .replace("{killer}",
+                event.getEntity().getKiller().getName());
+            } else {
+                dcMsg = event.getDeathMessage();
+            }
+            channel.sendMessage(dcMsg);
         }
     }
 

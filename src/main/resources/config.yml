@@ -16,10 +16,10 @@ channel-id: ""
 # look up Discord formatting for more!
 
 # Message that will be sent from Discord to Minecraft
-discord-msg: "&l{player}:&r {msg}"
+dc-chat-msg: "&l{player}:&r {msg}"
 
 # Message that will be sent from Minecraft to Discord
-mc-msg: "**{player}:** {msg}"
+mc-chat-msg: "**{player}:** {msg}"
 
 # Following are for server start, stop and player join, quit, advancement messages
 start-msg: "Server has **started**!"
@@ -27,3 +27,5 @@ stop-msg: "Server has **stopped**."
 join-msg: "***{player}*** *has joined the server!*"
 quit-msg: "***{player}*** *has left the server.*"
 adv-msg: "***{player}*** *has gained the advancement* ***{adv}*** *!*"
+# This will *only* be called if the player was killed by an entity. Default death messages will be called when the player, for e.g. dies due to fall damage. 
+dc-death-msg: "***{player}*** *was killed by ***{killer}*** *!*"
