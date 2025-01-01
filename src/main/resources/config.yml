@@ -22,10 +22,9 @@ dc-chat-msg: "&l{player}:&r {msg}"
 mc-chat-msg: "**{player}:** {msg}"
 
 # Following are for server start, stop and player join, quit, advancement messages
-start-msg: "Server has **started**!"
-stop-msg: "Server has **stopped**."
-join-msg: "***{player}*** *has joined the server!*"
-quit-msg: "***{player}*** *has left the server.*"
-adv-msg: "***{player}*** *has gained the advancement* ***{adv}*** *!*"
-# This will *only* be called if the player was killed by an entity. Default death messages will be called when the player, for e.g. dies due to fall damage. 
-dc-death-msg: "***{player}*** *was killed by ***{killer}*** *!*"
+start-msg: "Server was **started**!✅"
+stop-msg: "Server has been **stopped**.🛑"
+join-msg: "📥***{player}*** *just joined the server!*"
+quit-msg: "📤***{player}*** *has left the server.*"
+adv-msg: "⛏️***{player}*** *has completed the advancement* ***{adv}*** *!*"
+dc-death-msg: "⚰️***{player}*** *died!*"

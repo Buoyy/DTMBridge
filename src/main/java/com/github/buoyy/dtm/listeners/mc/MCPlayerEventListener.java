@@ -12,7 +12,6 @@ import org.bukkit.event.player.PlayerAdvancementDoneEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
 import org.bukkit.event.entity.PlayerDeathEvent;
-
 // Send messages in Discord for player chats in Minecraft
 // Sends message on Discord chat, player join/leave and player advancement
 public class MCPlayerEventListener implements Listener {
@@ -81,19 +80,8 @@ public class MCPlayerEventListener implements Listener {
     @EventHandler
     public void onPlayerDeath(PlayerDeathEvent event) {
         if (nullCheck()) {
-            String dcMsg;
-            if (event.getEntity().getKiller() != null) {
-                dcMsg = dcDeathMsg.replace("{player}",
-                event.getEntity().getName())
-                    .replace("{killer}",
-                event.getEntity().getKiller().getName());
-            } else {
-                dcMsg = dcDeathMsg.replace("{player}",
-                event.getEntity().getName())
-                    .replace("{killer}",
-                "environmental hazards");
-            }
-            channel.sendMessage(dcMsg).queue();
+            String msg = dcDeathMsg.replace("{player}",event.getEntity().getName());
+            channel.sendMessage(msg).queue();
         }
     }
 
