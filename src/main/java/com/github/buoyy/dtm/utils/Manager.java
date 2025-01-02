@@ -10,7 +10,7 @@ import net.dv8tion.jda.api.requests.GatewayIntent;
 
 import com.github.buoyy.dtm.listeners.discord.DiscordListener;
 import com.github.buoyy.dtm.listeners.mc.MCPlayerEventListener;
-import com.github.buoyy.dtm.commands.CommandInfo;
+import com.github.buoyy.dtm.commands.mc.MCCommandInfo;
 import com.github.buoyy.dtm.listeners.mc.MCServerEventListener;
 
 public class Manager {
@@ -21,15 +21,15 @@ public class Manager {
     private Guild guild;
     private TextChannel channel;
     private final String botToken, channelID, guildID;
-    
+
     public Manager(JavaPlugin plugin) {
         this.plugin = plugin;
         botToken = plugin.getConfig().getString("bot-token");
         channelID = plugin.getConfig().getString("channel-id");
         guildID = plugin.getConfig().getString("server-id");
     }
-    
-    // Grab IDs from config, try to load bot and handle exceptions otherwise
+
+    // Try to load bot and handle exceptions otherwise
     public boolean initJDA() {
 
         try {
@@ -40,16 +40,16 @@ public class Manager {
             jda.awaitReady(); // Avoid unexpected behavior
             guild = jda.getGuildById(guildID);
             channel = jda.getTextChannelById(channelID);
-            
+
             // Null checks for channel and server
             if (guild == null || channel == null || !channel.getGuild().equals(guild)) {
-            plugin.getLogger().severe("The guild or channel ID is invalid.");
-            return false;
-        }
-        plugin.getLogger().info("Discord server and channel were linked successfully with plugin.");
-        plugin.getLogger().info("Bot was initialised successfully.");
-        return true;
-        
+                plugin.getLogger().severe("The guild or channel ID is invalid.");
+                return false;
+            }
+            plugin.getLogger().info("Discord server and channel were linked successfully with plugin.");
+            plugin.getLogger().info("Bot was initialised successfully.");
+            return true;
+
         }
         // The usual exception handling
         catch (InvalidTokenException e) {
@@ -60,32 +60,32 @@ public class Manager {
             return false;
         }
     }
-    
+
     // Properly shutdown bot and wait (caused much unexpected behavior during testing)
     public void shutdownJDA() {
         if (jda != null) {
             try {
                 jda.shutdown();
-            jda.awaitShutdown();
-            plugin.getLogger().info("Successfully shut down bot.");
+                jda.awaitShutdown();
+                plugin.getLogger().info("Successfully shut down bot.");
             } catch (Exception e) {
-            plugin.getLogger().severe("Couldn't shutdown bot correctly: " + e.getMessage());
+                plugin.getLogger().severe("Couldn't shutdown bot correctly: " + e.getMessage());
             }
         }
     }
-    
+
     // Might add more events
     public void registerDiscordEvents() {
         jda.addEventListener(new DiscordListener(guild, channel, plugin.getConfig()));
     }
-    
+
     public void registerMCEvents() {
         plugin.getServer().getPluginManager().registerEvents(new MCPlayerEventListener(guild, channel, plugin.getConfig()), plugin);
         plugin.getServer().getPluginManager().registerEvents(new MCServerEventListener(plugin, guild, channel, plugin.getConfig()), plugin);
     }
-    
+
     // TODO: Add more useful commands to connect player with plugin
     public void registerMCCommands() {
-        plugin.getCommand("dtminfo").setExecutor(new CommandInfo());
+        plugin.getCommand("dtminfo").setExecutor(new MCCommandInfo());
     }
 }

@@ -90,7 +90,8 @@ public class MCPlayerEventListener implements Listener {
             } else {
                 dcMsg = event.getDeathMessage();
             }
-            channel.sendMessage(dcMsg);
+            assert dcMsg != null;
+            channel.sendMessage(dcMsg).queue();
         }
     }
 

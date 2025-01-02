@@ -1,11 +1,11 @@
-package com.github.buoyy.dtm.commands;
+package com.github.buoyy.dtm.commands.mc;
 
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.command.Command;
 
 
-public class CommandInfo implements CommandExecutor {
+public class MCCommandInfo implements CommandExecutor {
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
         if (label.equals("dtminfo")) {

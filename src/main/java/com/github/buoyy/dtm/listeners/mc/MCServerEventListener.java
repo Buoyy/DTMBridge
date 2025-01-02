@@ -17,6 +17,7 @@ public class MCServerEventListener implements Listener {
     private final String startMsg;
     private final String stopMsg;
 
+    // Get strings from config directly instead of initialising them otherwise
     public MCServerEventListener(JavaPlugin plugin, Guild guild, TextChannel channel, FileConfiguration config) {
         this.plugin = plugin;
         this.guild = guild;
