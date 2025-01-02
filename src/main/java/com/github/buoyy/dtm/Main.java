@@ -5,19 +5,20 @@ import org.bukkit.plugin.java.JavaPlugin;
 
 public class Main extends JavaPlugin {
     Manager manager;
+
     @Override
     public void onEnable() {
         saveDefaultConfig();
         manager = new Manager(this);
         if (!manager.initJDA()) {
             getLogger().severe("Try editing the config. ");
-            getLogger().severe("Then reload the server.");
+            getLogger().severe("Then reload/restart the server.");
             getPluginLoader().disablePlugin(this);
             return;
         }
         if (!manager.initGuildChannels()) {
             getLogger().severe("Try editing the config. ");
-            getLogger().severe("Then reload the server.");
+            getLogger().severe("Then reload/restart the server.");
             getPluginLoader().disablePlugin(this);
             return;
         }
@@ -25,7 +26,7 @@ public class Main extends JavaPlugin {
         manager.registerMCEvents();
         manager.registerMCCommands();
     }
-    
+
     @Override
     public void onDisable() {
         manager.shutdownJDA();

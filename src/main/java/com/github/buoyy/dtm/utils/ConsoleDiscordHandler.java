@@ -1,39 +1,27 @@
 package com.github.buoyy.dtm.utils;
 
 import net.dv8tion.jda.api.entities.channel.concrete.TextChannel;
-
-import java.util.logging.Handler;
+import java.util.logging.ConsoleHandler;
 import java.util.logging.LogRecord;
-import java.util.logging.Logger;
 
-public class ConsoleDiscordHandler extends Handler {
-    private final TextChannel channel;
+public class ConsoleDiscordHandler extends ConsoleHandler {
+    private final TextChannel consoleChannel;
 
-    public ConsoleDiscordHandler(TextChannel channel) {
-        this.channel = channel;
+    public ConsoleDiscordHandler(TextChannel consoleChannel) {
+        this.consoleChannel = consoleChannel;
     }
 
     @Override
     public void publish(LogRecord record) {
-        if (channel != null && record.getMessage() != null) {
-            String message = String.format("[%s] %s", record.getLevel(), record.getMessage());
-            try {
-            channel.sendMessage(message).queue(null, throwable -> {
-                System.err.println("Failed to send log message to Discord: " + throwable.getMessage());
-            });
-        } catch (Exception e) {
-            System.err.println("Error while publishing log to Discord: " + e.getMessage());
-            }   
+        if (consoleChannel != null) {
+            String message = getFormatter().format(record);
+            consoleChannel.sendMessage(message).queue(); // Send message to Discord
         }
     }
 
     @Override
-    public void flush() {
-        // No need to implement
-    }
+    public void flush() { super.flush(); }
 
     @Override
-    public void close() throws SecurityException {
-        // No need to implement
-    }
+    public void close() throws SecurityException { super.close(); }
 }

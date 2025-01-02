@@ -41,6 +41,7 @@ public class MCServerEventListener implements Listener {
             channel.sendMessage(stopMsg).queue();
         }
     }
+
     private boolean nullCheck() {
         return !(guild == null || channel == null);
     }
