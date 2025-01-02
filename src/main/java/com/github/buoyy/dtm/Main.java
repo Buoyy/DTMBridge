@@ -15,6 +15,12 @@ public class Main extends JavaPlugin {
             getPluginLoader().disablePlugin(this);
             return;
         }
+        if (!manager.initGuildChannels()) {
+            getLogger().severe("Try editing the config. ");
+            getLogger().severe("Then reload the server.");
+            getPluginLoader().disablePlugin(this);
+            return;
+        }
         manager.registerDiscordEvents();
         manager.registerMCEvents();
         manager.registerMCCommands();

@@ -1,5 +1,5 @@
 name: DTMBridge
-version: '0.9'
+version: '1.0'
 main: com.github.buoyy.dtm.Main
 api-version: '1.21'
 load: STARTUP
