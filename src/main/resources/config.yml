@@ -4,7 +4,11 @@ bot-token: ""
 #the same bot in multiple servers.
 server-id: ""
 #The channel to write to and read messages from.
-channel-id: ""
+chat-channel-id: ""
+# Use this only if you wish use console integration
+enable-console: false
+# The channel to write to and read the console from (LEAVE EMPTY IF YOU PLAN NOT TO USE CONSOLE INTEGRATION)
+discord-channel-id: ""
 # MESSAGE CUSTOMIZATION
 # NOTE: {player} -> player name, {adv} -> advancement name
 # {msg} -> message name

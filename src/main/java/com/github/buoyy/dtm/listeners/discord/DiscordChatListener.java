@@ -10,13 +10,13 @@ import org.bukkit.configuration.file.FileConfiguration;
 import org.jetbrains.annotations.NotNull;
 
 // Send messages in the Minecraft server chat
-public class DiscordListener extends ListenerAdapter {
+public class DiscordChatListener extends ListenerAdapter {
 
     private final TextChannel channel;
     private final Guild guild;
     private final String dcChatMsg;
 
-    public DiscordListener(Guild guild, TextChannel channel, FileConfiguration config) {
+    public DiscordChatListener(Guild guild, TextChannel channel, FileConfiguration config) {
         this.guild = guild;
         this.channel = channel;
         this.dcChatMsg = config.getString("dc-chat-msg");
