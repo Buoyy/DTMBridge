@@ -9,6 +9,7 @@ public class ConsoleDiscordHandler extends ConsoleHandler {
 
     public ConsoleDiscordHandler(TextChannel consoleChannel) {
         this.consoleChannel = consoleChannel;
+        System.out.println("Logger handler was loaded.");
     }
 
     @Override
