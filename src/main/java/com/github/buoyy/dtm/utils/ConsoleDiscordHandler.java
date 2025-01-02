@@ -14,8 +14,14 @@ public class ConsoleDiscordHandler extends ConsoleHandler {
     @Override
     public void publish(LogRecord record) {
         if (consoleChannel != null) {
+            System.out.println("Got a log!");
             String message = getFormatter().format(record);
-            consoleChannel.sendMessage(message).queue(); // Send message to Discord
+            consoleChannel.sendMessage(message).queue(
+                    success -> {
+                        System.out.println("Sent to discord");},
+                    error -> {
+                        System.out.println("error sending to discord");error.printStackTrace();}
+            );
         }
     }
 

@@ -77,24 +77,9 @@ public class Manager {
             chatChannel = jda.getTextChannelById(chatChannelID);
             if (guild == null || chatChannel == null || !chatChannel.getGuild().equals(guild)) {
                 plugin.getLogger().severe("Invalid Guild or Chat channel ID.");
-                plugin.getLogger().severe("Guild: "+guildID);
-                plugin.getLogger().severe("Chat channel: "+chatChannelID);
+                plugin.getLogger().severe("Guild: " + guildID);
+                plugin.getLogger().severe("Chat channel: " + chatChannelID);
                 return false;
-            }
-            if (plugin.getConfig().getBoolean("enable-console")) {
-                if (consoleChannelID != null && !consoleChannelID.isBlank()) {
-                    TextChannel consoleChannel = jda.getTextChannelById(consoleChannelID);
-                    if (consoleChannel == null || !consoleChannel.getGuild().equals(guild)) {
-                        plugin.getLogger().severe("Invalid console channel ID.");
-                        return false;
-                    }
-                    // Adding the ConsoleDiscordHandler to forward console logs to Discord
-                    consoleHandler = new ConsoleDiscordHandler(consoleChannel);
-                    consoleLogger.addHandler(consoleHandler);
-                    plugin.getLogger().info("Console channel linked to Discord.");
-                }
-            } else {
-                plugin.getLogger().info("Console integration is disabled.");
             }
             plugin.getLogger().finest("Server and chat channel were connected to successfully.");
             return true;
@@ -102,6 +87,25 @@ public class Manager {
             plugin.getLogger().severe("Bot is not ready.");
             return false;
         }
+    }
+
+    public boolean initConsole() {
+        if (plugin.getConfig().getBoolean("enable-console")) {
+            if (consoleChannelID != null && !consoleChannelID.isBlank()) {
+                TextChannel consoleChannel = jda.getTextChannelById(consoleChannelID);
+                if (consoleChannel == null || !consoleChannel.getGuild().equals(guild)) {
+                    plugin.getLogger().severe("Invalid console channel ID.");
+                    return false;
+                }
+                // Adding the ConsoleDiscordHandler to forward console logs to Discord
+                consoleHandler = new ConsoleDiscordHandler(consoleChannel);
+                consoleLogger.addHandler(consoleHandler);
+                plugin.getLogger().info("Console channel linked to Discord.");
+            }
+        } else {
+            plugin.getLogger().info("Console integration is disabled.");
+        }
+        return true;
     }
 
     // Might add more events
