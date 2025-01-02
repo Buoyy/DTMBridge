@@ -3,7 +3,7 @@ package com.github.buoyy.dtm;
 import com.github.buoyy.dtm.utils.Manager;
 import org.bukkit.plugin.java.JavaPlugin;
 
-public class Main extends JavaPlugin {
+public class DTMBridge extends JavaPlugin {
     Manager manager;
 
     @Override
