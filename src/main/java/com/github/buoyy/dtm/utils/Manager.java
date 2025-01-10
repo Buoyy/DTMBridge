@@ -13,6 +13,7 @@ import com.github.buoyy.dtm.listeners.mc.MCPlayerEventListener;
 import com.github.buoyy.dtm.commands.mc.MCCommandInfo;
 import com.github.buoyy.dtm.listeners.mc.MCServerEventListener;
 
+import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class Manager {
@@ -23,16 +24,12 @@ public class Manager {
     private Guild guild;
     private TextChannel chatChannel;
     private final String botToken;
-    private final String chatChannelID, guildID, consoleChannelID;
-    private final Logger consoleLogger;
-    private ConsoleDiscordHandler consoleHandler;
+    private final String chatChannelID, guildID;
     public Manager(JavaPlugin plugin) {
         this.plugin = plugin;
         botToken = plugin.getConfig().getString("bot-token");
         chatChannelID = plugin.getConfig().getString("chat-channel-id");
         guildID = plugin.getConfig().getString("guild-id");
-        consoleChannelID = plugin.getConfig().getString("console-channel-id");
-        consoleLogger = plugin.getServer().getLogger();
     }
 
     // Grab IDs from config, try to load bot and handle exceptions otherwise
@@ -57,7 +54,6 @@ public class Manager {
     public void shutdownJDA() {
         if (jda != null) {
             try {
-                consoleLogger.removeHandler(consoleHandler);
                 jda.shutdown();
                 jda.awaitShutdown();
                 plugin.getLogger().info("Successfully shut down bot.");
@@ -87,25 +83,6 @@ public class Manager {
             plugin.getLogger().severe("Bot is not ready.");
             return false;
         }
-    }
-
-    public boolean initConsole() {
-        if (plugin.getConfig().getBoolean("enable-console")) {
-            if (consoleChannelID != null && !consoleChannelID.isBlank()) {
-                TextChannel consoleChannel = jda.getTextChannelById(consoleChannelID);
-                if (consoleChannel == null || !consoleChannel.getGuild().equals(guild)) {
-                    plugin.getLogger().severe("Invalid console channel ID.");
-                    return false;
-                }
-                // Adding the ConsoleDiscordHandler to forward console logs to Discord
-                consoleHandler = new ConsoleDiscordHandler(consoleChannel);
-                consoleLogger.addHandler(consoleHandler);
-                plugin.getLogger().info("Console channel linked to Discord.");
-            }
-        } else {
-            plugin.getLogger().info("Console integration is disabled.");
-        }
-        return true;
     }
 
     // Might add more events

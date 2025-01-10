@@ -3,6 +3,7 @@ package com.github.buoyy.dtm.listeners.mc;
 import net.dv8tion.jda.api.entities.channel.concrete.TextChannel;
 import net.dv8tion.jda.api.entities.Guild;
 
+import org.bukkit.ChatColor;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.advancement.AdvancementDisplay;
 import org.bukkit.event.EventHandler;
@@ -37,9 +38,9 @@ public class MCPlayerEventListener implements Listener {
     public void onPlayerChat(AsyncPlayerChatEvent event) {
         if (nullCheck()) {
             // Username is to be bold
-            String msg = mcChatMsg.replace("{player}",
+            String msg = stripColorCodes(mcChatMsg.replace("{player}",
                     event.getPlayer().getDisplayName())
-                            .replace("{msg}", event.getMessage());
+                            .replace("{msg}", event.getMessage()));
             channel.sendMessage(msg).queue();
         }
     }
@@ -48,8 +49,8 @@ public class MCPlayerEventListener implements Listener {
     @EventHandler
     public void onPlayerJoin(PlayerJoinEvent event) {
         if (nullCheck()) {
-            String msg = joinMsg.replace("{player}",
-                            event.getPlayer().getDisplayName());
+            String msg = stripColorCodes(joinMsg.replace("{player}",
+                            event.getPlayer().getDisplayName()));
             channel.sendMessage(msg).queue();
         }
     }
@@ -58,8 +59,8 @@ public class MCPlayerEventListener implements Listener {
     @EventHandler
     public void onPlayerLeave(PlayerQuitEvent event) {
         if (nullCheck()) {
-            String msg = quitMsg.replace("{player}",
-                            event.getPlayer().getDisplayName());
+            String msg = stripColorCodes(quitMsg.replace("{player}",
+                            event.getPlayer().getDisplayName()));
             channel.sendMessage(msg).queue();
         }
     }
@@ -69,9 +70,9 @@ public class MCPlayerEventListener implements Listener {
         if (nullCheck()) {
             AdvancementDisplay display = event.getAdvancement().getDisplay();
             if (display != null) {
-                String msg = advMsg.replace("{player}",
+                String msg = stripColorCodes(advMsg.replace("{player}",
                                 event.getPlayer().getDisplayName())
-                        .replace("{adv}", display.getTitle());
+                        .replace("{adv}", display.getTitle()));
                 channel.sendMessage(msg).queue();
             }
         }
@@ -90,5 +91,10 @@ public class MCPlayerEventListener implements Listener {
     // here but null checks go BRRRRRRRR
     private boolean nullCheck() {
         return !(guild == null || channel == null);
+    }
+
+    // Removes colour from chat (Useful for removing MC formatting for discord)
+    public static String stripColorCodes(String message) {
+        return ChatColor.stripColor(ChatColor.translateAlternateColorCodes('&', message));
     }
 }

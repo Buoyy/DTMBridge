@@ -22,12 +22,6 @@ public class DTMBridge extends JavaPlugin {
             getPluginLoader().disablePlugin(this);
             return;
         }
-        if (!manager.initConsole()) {
-            getLogger().severe("Try editing the config. ");
-            getLogger().severe("Then reload/restart the server.");
-            getPluginLoader().disablePlugin(this);
-            return;
-        }
         manager.registerDiscordEvents();
         manager.registerMCEvents();
         manager.registerMCCommands();
