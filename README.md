@@ -51,4 +51,5 @@ In such cases,
 
 ## Features to add:
 - Console integration 
+- Discord and Minecraft account linkage (server specific)
 - and more...
