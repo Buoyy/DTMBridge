@@ -13,12 +13,13 @@ public class MCCommandLink implements CommandExecutor {
     Account account;
     @Override
     public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, @NotNull String[] args) {
-        if (!(sender instanceof Player)) sender.sendMessage("Command is player only!");
-        // if (!Account.hasAccount(sender)) sender.sendMessage("You are already linked with account: name");
+        if ((sender instanceof Player player)){
+        //TODO: if player is already linked, send an "already linked" kind of message
         if (label.equals("dtmlink")) {
-            UUID pass = UUID.randomUUID();
-            account = new Account((Player)sender, pass.toString());
-            sender.sendMessage("Send this to the chat-bot as a DM: "+ pass.toString());
+            String key = Account.genKey();
+            player.sendMessage("DM this to the server's DTM bot: " + key);
+            account = new Account(player, key);
+            }
         }
         return true;
     }
