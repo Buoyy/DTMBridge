@@ -6,4 +6,7 @@ load: STARTUP
 commands:
   dtminfo:
     description: Informs sender about plugin.
-    usage: /dtminfo
+    usage: /<command>
+  dtmlink:
+    description: Sends a key to the player to be sent to the bot for account linking. 
+    usage: /<command>
