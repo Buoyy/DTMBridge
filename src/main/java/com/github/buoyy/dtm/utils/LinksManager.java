@@ -16,4 +16,7 @@ public class LinksManager {
         temps.add(temp);
         return temp;
     }
+    public ArrayList<TempAccount> getTemps() {
+        return temps;
+    }
 }
