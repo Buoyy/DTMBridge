@@ -1,6 +1,6 @@
 package com.github.buoyy.dtm;
 
-import com.github.buoyy.dtm.utils.Manager;
+import com.github.buoyy.dtm.utils.InitManager;
 import org.bukkit.plugin.java.JavaPlugin;
 
 public class DTMBridge extends JavaPlugin {
@@ -9,26 +9,26 @@ public class DTMBridge extends JavaPlugin {
     @Override
     public void onEnable() {
         saveDefaultConfig();
-        manager = new Manager(this);
-        if (!manager.initJDA()) {
+        initManager = new InitManager(this);
+        if (!initManager.initJDA()) {
             getLogger().severe("Try editing the config. ");
             getLogger().severe("Then reload/restart the server.");
             getPluginLoader().disablePlugin(this);
             return;
         }
-        if (!manager.initGuildChannels()) {
+        if (!initManager.initGuildChannels()) {
             getLogger().severe("Try editing the config. ");
             getLogger().severe("Then reload/restart the server.");
             getPluginLoader().disablePlugin(this);
             return;
         }
-        manager.registerDiscordEvents();
-        manager.registerMCEvents();
-        manager.registerMCCommands();
+        initManager.registerDiscordEvents();
+        initManager.registerMCEvents();
+        initManager.registerMCCommands();
     }
 
     @Override
     public void onDisable() {
-        manager.shutdownJDA();
+        initManager.shutdownJDA();
     }
 }

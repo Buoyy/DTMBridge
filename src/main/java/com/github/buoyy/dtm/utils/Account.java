@@ -14,9 +14,7 @@ public class Account {
     private boolean linked;
     
     // All accounts when generated shouldn't be linked. Will only be done when player tries to link it. 
-    public Account(Player player, String key) {
-        this.player = player;
-        this.pass = pass;
+    public Account() {
         setLinked(false);
     }
     
@@ -35,6 +33,16 @@ public class Account {
     public boolean getLinked() {
         return linked;
     }
+    
+    public void setPlayer(Player player) {
+        this.player = player:
+    }
+    
+    public boolean getPlayer() {
+        return player;
+    }
+    
+    
 /*
     public static boolean hasAccount(Player player) {
 

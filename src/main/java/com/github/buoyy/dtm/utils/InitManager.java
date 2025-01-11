@@ -16,7 +16,7 @@ import com.github.buoyy.dtm.listeners.mc.MCServerEventListener;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-public class Manager {
+public class InitManager {
 
     // Define all important stuff
     private final JavaPlugin plugin;
@@ -25,7 +25,7 @@ public class Manager {
     private TextChannel chatChannel;
     private final String botToken;
     private final String chatChannelID, guildID;
-    public Manager(JavaPlugin plugin) {
+    public InitManager(JavaPlugin plugin) {
         this.plugin = plugin;
         botToken = plugin.getConfig().getString("bot-token");
         chatChannelID = plugin.getConfig().getString("chat-channel-id");
