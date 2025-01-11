@@ -4,7 +4,7 @@ import com.github.buoyy.dtm.utils.InitManager;
 import org.bukkit.plugin.java.JavaPlugin;
 
 public class DTMBridge extends JavaPlugin {
-    Manager manager;
+    InitManager initManager;
 
     @Override
     public void onEnable() {

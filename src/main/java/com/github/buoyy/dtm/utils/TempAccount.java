@@ -1,12 +1,10 @@
 package com.github.buoyy.dtm.utils;
 
-import net.dv8tion.jda.api.entities.Member;
 import org.bukkit.entity.Player;
 import com.github.buoyy.dtm.utils.Account;
 
 public class TempAccount {
     private final Player player;
-    private final Member user;
     private final String key;
     public TempAccount(Player player) {
         this.player = player;
