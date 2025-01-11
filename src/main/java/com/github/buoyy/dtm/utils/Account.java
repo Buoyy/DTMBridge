@@ -8,14 +8,17 @@ import java.util.UUID;
 // Account will be linked between Discord and Minecraft.
 // Players will even be able to send quick DMs through Minecraft or Discord.
 public class Account {
-    private Player player;
-    private Member user;
-    private String key;
+    private final Player player;
+    private final Member user;
+    private final String key;
     private boolean linked;
     
     // All accounts when generated shouldn't be linked. Will only be done when player tries to link it. 
-    public Account() {
-        setLinked(false);
+    public Account(Player player, Member user) {
+        this.player = player;
+        this.user = user;
+        this.key = genKey();
+        this.linked = false;
     }
     
     public static String genKey() {
@@ -30,7 +33,7 @@ public class Account {
         linked = state;
     }
     
-    public boolean getLinked() {
+    public boolean isLinked() {
         return linked;
     }
     
@@ -42,14 +45,10 @@ public class Account {
         return player;
     }
     
-    
-/*
-    public static boolean hasAccount(Player player) {
-
+    public void setUser(Member user) {
+        this.user = user;
     }
-    public static boolean hasAccount(Member user) {
-
+    public Member getUser() {
+        return user;
     }
-
- */
 }

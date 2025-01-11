@@ -11,8 +11,7 @@ import org.jetbrains.annotations.NotNull;
 import java.util.UUID;
 
 public class MCCommandLink implements CommandExecutor {
-    Account account; String key;
-    LinksManager manager;
+    private final LinksManager manager;
     public MCCommandLink(LinksManager manager) {
         this.manager = manager;
     }
@@ -20,15 +19,10 @@ public class MCCommandLink implements CommandExecutor {
     public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, @NotNull String[] args) {
         if ((sender instanceof Player player)){
         //TODO: if player is already linked, send an "already linked" kind of message
-        if (label.equals("dtmlink")) {
             key = Account.genKey();
-            player.sendMessage("DM this to the server's DTM bot: " + key);
-            }
+            manager.getTemps().add(player, key);
+            player.sendMessage("Send this to the bot's DM to link accounts: "+key);
         }
         return true;
-    }
-    
-    public String getKey() {
-        return key;
     }
 }
