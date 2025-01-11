@@ -38,7 +38,7 @@ public class Account {
         this.player = player:
     }
     
-    public boolean getPlayer() {
+    public Player getPlayer() {
         return player;
     }
     
