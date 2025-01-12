@@ -10,3 +10,6 @@ commands:
   dtmlink:
     description: Sends a key to the player to be sent to the bot for account linking. 
     usage: /<command>
+  dtmlinks:
+    description: Sends a map of all accounts linked.
+    usage: /<command>

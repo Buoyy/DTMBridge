@@ -1,7 +1,7 @@
 package com.github.buoyy.dtm.listeners.discord;
 
-import com.github.buoyy.dtm.utils.Account;
-import com.github.buoyy.dtm.utils.AccountManager;
+import com.github.buoyy.dtm.utils.accounts.Account;
+import com.github.buoyy.dtm.utils.accounts.AccountManager;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
 import org.jetbrains.annotations.NotNull;

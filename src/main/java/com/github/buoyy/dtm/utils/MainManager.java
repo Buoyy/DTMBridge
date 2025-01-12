@@ -1,7 +1,9 @@
 package com.github.buoyy.dtm.utils;
 
 import com.github.buoyy.dtm.commands.mc.MCCommandLink;
+import com.github.buoyy.dtm.commands.mc.MCCommandLinks;
 import com.github.buoyy.dtm.listeners.discord.DiscordKeyDMListener;
+import com.github.buoyy.dtm.utils.accounts.AccountManager;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import net.dv8tion.jda.api.entities.Guild;
@@ -22,6 +24,7 @@ public class MainManager {
     // Define all important stuff
     private final JavaPlugin plugin;
     private final AccountManager accountManager;
+    private final YAMLLoader loader;
     private JDA jda;
     private Guild guild;
     private TextChannel chatChannel;
@@ -29,7 +32,8 @@ public class MainManager {
     private final String chatChannelID, guildID;
     public MainManager(JavaPlugin plugin) {
         this.plugin = plugin;
-        this.accountManager = new AccountManager();
+        this.loader = new YAMLLoader(plugin);
+        this.accountManager = new AccountManager(loader);
         botToken = plugin.getConfig().getString("bot-token");
         chatChannelID = plugin.getConfig().getString("chat-channel-id");
         guildID = plugin.getConfig().getString("guild-id");
@@ -102,7 +106,8 @@ public class MainManager {
 
     // TODO: Add more useful commands to connect player with plugin
     public void registerMCCommands() {
-        Objects.requireNonNull(plugin.getCommand("dtminfo")).setExecutor(new MCCommandInfo());
-        Objects.requireNonNull(plugin.getCommand("dtmlink")).setExecutor(new MCCommandLink(accountManager));
+        Objects.requireNonNull(plugin.getCommand("dtminfo")).setExecutor(new MCCommandInfo(plugin));
+        Objects.requireNonNull(plugin.getCommand("dtmlink")).setExecutor(new MCCommandLink(accountManager, loader));
+        Objects.requireNonNull(plugin.getCommand("dtmlinks")).setExecutor(new MCCommandLinks(accountManager));
     }
 }

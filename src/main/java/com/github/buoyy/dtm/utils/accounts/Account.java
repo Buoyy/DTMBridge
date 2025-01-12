@@ -1,4 +1,4 @@
-package com.github.buoyy.dtm.utils;
+package com.github.buoyy.dtm.utils.accounts;
 
 import net.dv8tion.jda.api.entities.User;
 import org.bukkit.entity.Player;
