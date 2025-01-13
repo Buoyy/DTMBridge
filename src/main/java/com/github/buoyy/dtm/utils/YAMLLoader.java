@@ -24,4 +24,7 @@ public class YAMLLoader {
         }
         config = YamlConfiguration.loadConfiguration(file);
     }
+    public void saveConfig() {
+      if (file.exists()) config.save(file);
+    }
 }

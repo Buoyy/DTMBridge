@@ -10,22 +10,22 @@ import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
 
-import java.util.Map;
+import java.util.Set;
 import java.util.Objects;
 
 public class MCCommandLink implements CommandExecutor {
     private final AccountManager manager;
     private final FileConfiguration config;
-    public MCCommandLink(AccountManager manager, YAMLLoader yamlLoader) {
+    private final Set<String> indices;
+    public MCCommandLink(AccountManager manager) {
         this.manager = manager;
         this.config = manager.getLoader().getConfig();
+        this.indices = config.getKeys().getValues(false);
     }
 
-    private boolean hasAccount(String playerID) {
-        Map<String, Object> linksSection = Objects.requireNonNull(config.getConfigurationSection("links"))
-                .getValues(false);
-        for (String x : linksSection.keySet()) {
-            if (x.equals(playerID)) return true;
+    private boolean hasAccount(String playerId) {
+        for (String x: indices) {
+            if (playerId.equals(config.getString(x+".mc-id"))) return true;
         }
         return false;
     }
@@ -35,12 +35,7 @@ public class MCCommandLink implements CommandExecutor {
             if (hasAccount(player.getUniqueId().toString()))
                 player.sendMessage("Already linked.");
             else {
-                String key = AccountManager.genKey();
-                Account account = new Account();
-                account.setPlayer(player);
-                account.setKey(key);
-                manager.getAccounts().add(account);
-                player.sendMessage("DM this to the bot to link account: "+key);
+                
             }
         }
         return true;
