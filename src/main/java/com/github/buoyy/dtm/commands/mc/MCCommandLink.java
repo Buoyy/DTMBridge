@@ -16,27 +16,22 @@ import java.util.Objects;
 public class MCCommandLink implements CommandExecutor {
     private final AccountManager manager;
     private final FileConfiguration config;
-    private final Set<String> indices;
     public MCCommandLink(AccountManager manager) {
         this.manager = manager;
         this.config = manager.getLoader().getConfig();
-        this.indices = config.getKeys().getValues(false);
     }
 
-    private boolean hasAccount(String playerId) {
-        for (String x: indices) {
-            if (playerId.equals(config.getString(x+".mc-id"))) return true;
-        }
-        return false;
-    }
     @Override
     public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, @NotNull String[] args) {
         if (sender instanceof Player player) {
-            if (hasAccount(player.getUniqueId().toString()))
-                player.sendMessage("Already linked.");
+            if (manager.hasAccount(player.getUniqueId().toString()))
+                player.sendMessage("Already linked with "+
+                manager.getLinkedUser(player.getUniqueId().toString()).getEffectiveName());
             else {
                 
             }
+        } else {
+          sender.sendMessage("This is a player-only command. Try running in-game.");
         }
         return true;
     }
