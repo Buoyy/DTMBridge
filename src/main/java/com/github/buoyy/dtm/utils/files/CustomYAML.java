@@ -1,6 +1,7 @@
 package com.github.buoyy.dtm.utils.files;
 
 import java.io.File;
+import java.io.IOException;
 
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
@@ -25,5 +26,15 @@ public class CustomYAML {
         }
         config = new YamlConfiguration();
         YamlConfiguration.loadConfiguration(file);
+    }
+    public void saveConfig() {
+        try {
+            config.save(file);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+    public void reloadConfig() {
+        if (!file.exists()) config = YamlConfiguration.loadConfiguration(file);
     }
 }

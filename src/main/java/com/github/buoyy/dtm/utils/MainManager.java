@@ -1,4 +1,7 @@
 package com.github.buoyy.dtm.utils;
+import com.github.buoyy.dtm.commands.mc.MCCommandSave;
+import com.github.buoyy.dtm.commands.mc.MCCommandSaves;
+import com.github.buoyy.dtm.utils.files.CustomYAML;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import net.dv8tion.jda.api.entities.Guild;
@@ -18,6 +21,7 @@ public class MainManager {
 
     // Define all important stuff
     private final JavaPlugin plugin;
+    private final CustomYAML savesYaml;
     private JDA jda;
     private Guild guild;
     private TextChannel chatChannel;
@@ -28,6 +32,8 @@ public class MainManager {
         botToken = plugin.getConfig().getString("bot-token");
         chatChannelID = plugin.getConfig().getString("chat-channel-id");
         guildID = plugin.getConfig().getString("guild-id");
+        savesYaml = new CustomYAML(plugin, "saves.yml");
+        savesYaml.reloadConfig();
     }
 
     // Grab IDs from config, try to load bot and handle exceptions otherwise
@@ -96,5 +102,8 @@ public class MainManager {
 
     // TODO: Add more useful commands to connect player with plugin
     public void registerMCCommands() {
-        Objects.requireNonNull(plugin.getCommand("dtminfo")).setExecutor(new MCCommandInfo(plugin));    }
+        Objects.requireNonNull(plugin.getCommand("dtminfo")).setExecutor(new MCCommandInfo(plugin));
+        Objects.requireNonNull(plugin.getCommand("dtmsave")).setExecutor(new MCCommandSave(chatChannel, savesYaml));
+        Objects.requireNonNull(plugin.getCommand("dtmsaves")).setExecutor(new MCCommandSaves(savesYaml));
+    }
 }

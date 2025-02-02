@@ -6,10 +6,11 @@ load: STARTUP
 commands:
   dtminfo:
     description: Informs sender about plugin.
-    usage: /<command>
-  dtmlink:
-    description: Sends a key to the player to be sent to the bot for account linking. 
-    usage: /<command>
-  dtmlinks:
-    description: Sends a map of all accounts linked.
-    usage: /<command>
+    usage: /dtminfo
+  dtmsave:
+    description: Saves the current location of the player for common use.
+    usage: /dtmsave <location-name>
+
+  dtmsaves:
+    description: Shows coordinates of chosen save. If no save is given, all saves will be listed.
+    usage: /dtmsaves <location-name{optional}>
