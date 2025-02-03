@@ -21,7 +21,6 @@ public class MainManager {
 
     // Define all important stuff
     private final JavaPlugin plugin;
-    private final CustomYAML savesYaml;
     private JDA jda;
     private Guild guild;
     private TextChannel chatChannel;
@@ -32,8 +31,6 @@ public class MainManager {
         botToken = plugin.getConfig().getString("bot-token");
         chatChannelID = plugin.getConfig().getString("chat-channel-id");
         guildID = plugin.getConfig().getString("guild-id");
-        savesYaml = new CustomYAML(plugin, "saves.yml");
-        savesYaml.getConfig().options().copyDefaults(true);
     }
 
     // Grab IDs from config, try to load bot and handle exceptions otherwise
@@ -103,7 +100,7 @@ public class MainManager {
     // TODO: Add more useful commands to connect player with plugin
     public void registerMCCommands() {
         Objects.requireNonNull(plugin.getCommand("dtminfo")).setExecutor(new MCCommandInfo(plugin));
-        Objects.requireNonNull(plugin.getCommand("dtmsave")).setExecutor(new MCCommandSave(chatChannel, savesYaml));
-        Objects.requireNonNull(plugin.getCommand("dtmsaves")).setExecutor(new MCCommandSaves(savesYaml));
+        Objects.requireNonNull(plugin.getCommand("dtmsave")).setExecutor(new MCCommandSave(chatChannel, plugin));
+        Objects.requireNonNull(plugin.getCommand("dtmsaves")).setExecutor(new MCCommandSaves(plugin));
     }
 }
