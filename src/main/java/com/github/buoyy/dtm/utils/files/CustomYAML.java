@@ -24,8 +24,7 @@ public class CustomYAML {
             file.getParentFile().mkdirs();
             plugin.saveResource(fileName, false);
         }
-        config = new YamlConfiguration();
-        YamlConfiguration.loadConfiguration(file);
+        config = YamlConfiguration.loadConfiguration(file);
     }
     public void saveConfig() {
         try {
