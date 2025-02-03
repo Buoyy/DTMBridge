@@ -10,7 +10,9 @@ commands:
   dtmsave:
     description: Saves the current location of the player for common use.
     usage: /dtmsave <location-name>
-
+  dtmreload:
+    description: Reloads the plugin config files. 
+    usage: /dtmreload
   dtmsaves:
     description: Shows coordinates of chosen save. If no save is given, all saves will be listed.
     usage: /dtmsaves <location-name{optional}>

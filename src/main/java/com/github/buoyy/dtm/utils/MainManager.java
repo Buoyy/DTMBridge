@@ -13,6 +13,7 @@ import net.dv8tion.jda.api.requests.GatewayIntent;
 import com.github.buoyy.dtm.listeners.discord.DiscordChatListener;
 import com.github.buoyy.dtm.listeners.mc.MCPlayerEventListener;
 import com.github.buoyy.dtm.commands.mc.MCCommandInfo;
+import com.github.buoyy.dtm.commands.mc.MCCommandReload;
 import com.github.buoyy.dtm.listeners.mc.MCServerEventListener;
 
 import java.util.Objects;
@@ -89,6 +90,11 @@ public class MainManager {
         }
     }
 
+    public void reloadPlugin() {
+        plugin.reloadConfig();
+        savesYaml.reloadConfig();
+    }
+
     // Might add more events
     public void registerDiscordEvents() {
         jda.addEventListener(new DiscordChatListener(guild, chatChannel, plugin.getConfig()));
@@ -103,6 +109,7 @@ public class MainManager {
     // TODO: Add more useful commands to connect player with plugin
     public void registerMCCommands() {
         Objects.requireNonNull(plugin.getCommand("dtminfo")).setExecutor(new MCCommandInfo(plugin));
+        Objects.requireNonNull(plugin.getCommand("dtmreload")).setExecutor(new MCCommandReload(this));
         Objects.requireNonNull(plugin.getCommand("dtmsave")).setExecutor(new MCCommandSave(chatChannel, savesYaml));
         Objects.requireNonNull(plugin.getCommand("dtmsaves")).setExecutor(new MCCommandSaves(savesYaml));
     }
