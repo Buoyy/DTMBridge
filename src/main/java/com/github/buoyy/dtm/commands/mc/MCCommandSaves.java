@@ -21,10 +21,10 @@ public class MCCommandSaves implements CommandExecutor {
             }
         } else if (args[0] != null) {
             String msg = String.format("World: %s\nX: %s\nY: %s\nZ: %s",
-                    saves.getConfig().get(args[0]+".world"),
-                    saves.getConfig().get(args[0]+".x"),
-                    saves.getConfig().get(args[0]+".y"),
-                    saves.getConfig().get(args[0]+".z"));
+                    saves.getConfig().getString(args[0]+".world"),
+                    saves.getConfig().getInt(args[0]+".x"),
+                    saves.getConfig().getInt(args[0]+".y"),
+                    saves.getConfig().getInt(args[0]+".z"));
             sender.sendMessage(msg);
         }
         return true;

@@ -33,7 +33,7 @@ public class MainManager {
         chatChannelID = plugin.getConfig().getString("chat-channel-id");
         guildID = plugin.getConfig().getString("guild-id");
         savesYaml = new CustomYAML(plugin, "saves.yml");
-        savesYaml.reloadConfig();
+        savesYaml.getConfig().options().copyDefaults(true);
     }
 
     // Grab IDs from config, try to load bot and handle exceptions otherwise
