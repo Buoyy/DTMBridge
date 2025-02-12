@@ -1,7 +1,5 @@
 package com.github.buoyy.dtm.utils;
-import com.github.buoyy.dtm.commands.mc.MCCommandReload;
-import com.github.buoyy.dtm.commands.mc.MCCommandSave;
-import com.github.buoyy.dtm.commands.mc.MCCommandSaves;
+import com.github.buoyy.dtm.commands.mc.*;
 import com.github.buoyy.dtm.utils.files.CustomYAML;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -13,7 +11,6 @@ import net.dv8tion.jda.api.requests.GatewayIntent;
 
 import com.github.buoyy.dtm.listeners.discord.DiscordChatListener;
 import com.github.buoyy.dtm.listeners.mc.MCPlayerEventListener;
-import com.github.buoyy.dtm.commands.mc.MCCommandInfo;
 import com.github.buoyy.dtm.listeners.mc.MCServerEventListener;
 
 import java.util.Objects;
@@ -100,9 +97,11 @@ public class MainManager {
 
     // TODO: Add more useful commands to connect player with plugin
     public void registerMCCommands(CustomYAML config) {
-        Objects.requireNonNull(plugin.getCommand("dtminfo")).setExecutor(new MCCommandInfo(plugin));
-        Objects.requireNonNull(plugin.getCommand("dtmsave")).setExecutor(new MCCommandSave(config));
-        Objects.requireNonNull(plugin.getCommand("dtmsaves")).setExecutor(new MCCommandSaves(config.getConfig()));
-        Objects.requireNonNull(plugin.getCommand("dtmreload")).setExecutor(new MCCommandReload(plugin, config));
+        MCCommandHandler handler = new MCCommandHandler();
+        handler.registerSubCommand("save", new MCCommandSave(config));
+        handler.registerSubCommand("saves", new MCCommandSaves(config.getConfig()));
+        handler.registerSubCommand("reload", new MCCommandReload(plugin, config));
+        handler.registerSubCommand("delete", new MCCommandDelete(config));
+        Objects.requireNonNull(plugin.getCommand("dtm")).setExecutor(handler);
     }
 }

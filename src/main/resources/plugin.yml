@@ -4,18 +4,5 @@ main: com.github.buoyy.dtm.DTMBridge
 api-version: '1.21'
 load: STARTUP
 commands:
-  dtminfo:
-    description: Informs sender about plugin.
-    usage: /dtminfo
-  dtmsave:
-    description: Saves the current location of the player for common use.
-    usage: /dtmsave <location-name>
-  dtmreload:
-    description: Reloads the plugin config files. 
-    usage: /dtmreload
-  dtmsaves:
-    description: Shows coordinates of chosen save. If no save is given, all saves will be listed.
-    usage: /dtmsaves <location-name{optional}>
-
-  dtmreload:
-    description: Reloads the plugin config files.
+  dtm:
+    description: Main command of DTMBridge.
