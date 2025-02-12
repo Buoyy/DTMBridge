@@ -1,40 +1,37 @@
 package com.github.buoyy.dtm.utils.files;
 
+import org.bukkit.Bukkit;
+import org.bukkit.configuration.file.FileConfiguration;
+import org.bukkit.configuration.file.YamlConfiguration;
+
 import java.io.File;
 import java.io.IOException;
 
-import org.bukkit.configuration.file.FileConfiguration;
-import org.bukkit.configuration.file.YamlConfiguration;
-import org.bukkit.plugin.java.JavaPlugin;
-
 public class CustomYAML {
     private File file;
-    private final String fileName;
     private FileConfiguration config;
-    public CustomYAML(JavaPlugin plugin, String name) {
-        this.fileName = name;
-        createConfig(plugin);
-    }
     public FileConfiguration getConfig() {
-        return this.config;
+        return config;
     }
-    private void createConfig(JavaPlugin plugin) {
-        file = new File(plugin.getDataFolder(), fileName);
-        if (!file.exists()) {
-            file.getParentFile().mkdirs();
-            plugin.saveResource(fileName, false);
-        }
-        config = new YamlConfiguration();
-        YamlConfiguration.loadConfiguration(file);
-    }
-    public void saveConfig() {
+    public void save() {
         try {
             config.save(file);
         } catch (IOException e) {
-            throw new RuntimeException(e);
+            e.printStackTrace();
         }
     }
-    public void reloadConfig() {
-        if (!file.exists()) config = YamlConfiguration.loadConfiguration(file);
+    public void reload() {
+        config = YamlConfiguration.loadConfiguration(file);
+    }
+    public void setup(String name) {
+        file = new File(Bukkit.getServer().getPluginManager().getPlugin("DTMBridge").getDataFolder(), name+".yml");
+        if (!file.exists()) {
+            try {
+                file.createNewFile();
+            } catch (IOException e) {
+                e.getMessage();
+            }
+        }
+        config = YamlConfiguration.loadConfiguration(file);
     }
 }

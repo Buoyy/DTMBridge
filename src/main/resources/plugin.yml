@@ -14,3 +14,6 @@ commands:
   dtmsaves:
     description: Shows coordinates of chosen save. If no save is given, all saves will be listed.
     usage: /dtmsaves <location-name{optional}>
+
+  dtmreload:
+    description: Reloads the plugin config files.

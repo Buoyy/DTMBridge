@@ -1,29 +1,32 @@
 package com.github.buoyy.dtm;
 
 import com.github.buoyy.dtm.utils.MainManager;
+import com.github.buoyy.dtm.utils.files.CustomYAML;
 import org.bukkit.plugin.java.JavaPlugin;
 
 public class DTMBridge extends JavaPlugin {
-    MainManager manager;
+    private MainManager manager;
     @Override
     public void onEnable() {
+        CustomYAML locations = new CustomYAML();
+        locations.setup("locations");
+        locations.getConfig().options().copyDefaults(true);
+        locations.save();
         saveDefaultConfig();
         manager = new MainManager(this);
         if (!manager.initJDA()) {
             getLogger().severe("Try editing the config. ");
             getLogger().severe("Then reload/restart the server.");
-            getPluginLoader().disablePlugin(this);
             return;
         }
         if (!manager.initGuildChannels()) {
             getLogger().severe("Try editing the config. ");
             getLogger().severe("Then reload/restart the server.");
-            getPluginLoader().disablePlugin(this);
             return;
         }
         manager.registerDiscordEvents();
         manager.registerMCEvents();
-        manager.registerMCCommands();
+        manager.registerMCCommands(locations);
     }
 
     @Override

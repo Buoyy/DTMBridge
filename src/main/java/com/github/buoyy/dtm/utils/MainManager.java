@@ -1,4 +1,5 @@
 package com.github.buoyy.dtm.utils;
+import com.github.buoyy.dtm.commands.mc.MCCommandReload;
 import com.github.buoyy.dtm.commands.mc.MCCommandSave;
 import com.github.buoyy.dtm.commands.mc.MCCommandSaves;
 import com.github.buoyy.dtm.utils.files.CustomYAML;
@@ -98,9 +99,10 @@ public class MainManager {
     }
 
     // TODO: Add more useful commands to connect player with plugin
-    public void registerMCCommands() {
+    public void registerMCCommands(CustomYAML config) {
         Objects.requireNonNull(plugin.getCommand("dtminfo")).setExecutor(new MCCommandInfo(plugin));
-        Objects.requireNonNull(plugin.getCommand("dtmsave")).setExecutor(new MCCommandSave(chatChannel, plugin));
-        Objects.requireNonNull(plugin.getCommand("dtmsaves")).setExecutor(new MCCommandSaves(plugin));
+        Objects.requireNonNull(plugin.getCommand("dtmsave")).setExecutor(new MCCommandSave(config));
+        Objects.requireNonNull(plugin.getCommand("dtmsaves")).setExecutor(new MCCommandSaves(config.getConfig()));
+        Objects.requireNonNull(plugin.getCommand("dtmreload")).setExecutor(new MCCommandReload(plugin, config));
     }
 }
