@@ -24,8 +24,9 @@ public class DTMBridge extends JavaPlugin {
             getLogger().severe("Then reload/restart the server.");
             return;
         }
-        manager.registerDiscordEvents();
+        manager.registerDiscordEvents(locations);
         manager.registerMCEvents();
+        manager.registerDiscordCommands();
         manager.registerMCCommands(locations);
     }
 

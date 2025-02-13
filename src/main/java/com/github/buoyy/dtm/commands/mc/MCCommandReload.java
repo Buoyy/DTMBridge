@@ -4,7 +4,7 @@ import com.github.buoyy.dtm.utils.files.CustomYAML;
 import org.bukkit.command.CommandSender;
 import org.bukkit.plugin.java.JavaPlugin;
 
-public class MCCommandReload implements ISubCommand {
+public class MCCommandReload implements MCSubCommand {
     private final JavaPlugin plugin;
     private final CustomYAML saves;
     public MCCommandReload(JavaPlugin plugin, CustomYAML saves) {

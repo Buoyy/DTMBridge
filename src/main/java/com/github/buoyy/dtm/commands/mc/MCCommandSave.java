@@ -1,11 +1,15 @@
 package com.github.buoyy.dtm.commands.mc;
 
 import com.github.buoyy.dtm.utils.files.CustomYAML;
+
+import java.util.Arrays;
+import java.util.List;
+
 import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
-public class MCCommandSave implements ISubCommand {
+public class MCCommandSave implements MCSubCommand {
     private final CustomYAML saves;
     public MCCommandSave(CustomYAML saves) {
         this.saves = saves;
@@ -20,10 +24,9 @@ public class MCCommandSave implements ISubCommand {
             sender.sendMessage(ChatColor.RED+"No name specified for save location.\n"+ChatColor.AQUA+"Usage: /dtm save <name>");
             return true;
         }
+        List<Integer> coords = Arrays.asList(player.getLocation().getBlockX(), player.getLocation().getBlockY(), player.getLocation().getBlockZ());
         saves.getConfig().addDefault(args[1]+".world", player.getWorld().getName());
-        saves.getConfig().addDefault(args[1]+".x", player.getLocation().getBlockX());
-        saves.getConfig().addDefault(args[1]+".y", player.getLocation().getBlockY());
-        saves.getConfig().addDefault(args[1]+".z", player.getLocation().getBlockZ());
+        saves.getConfig().addDefault(args[1]+".coords", coords);
         player.sendMessage(ChatColor.GREEN+args[1]+ChatColor.AQUA+" has been saved as location!");
         saves.save();
         return true;

@@ -10,8 +10,8 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class MCCommandHandler implements CommandExecutor {
-    private final Map<String, ISubCommand> subCommandMap = new HashMap<>();
-    public void registerSubCommand(String name, ISubCommand command) {
+    private final Map<String, MCSubCommand> subCommandMap = new HashMap<>();
+    public void registerSubCommand(String name, MCSubCommand command) {
         subCommandMap.put(name.toLowerCase(), command);
     }
     @Override
@@ -20,7 +20,7 @@ public class MCCommandHandler implements CommandExecutor {
             sender.sendMessage("Usage: /dtm <save/saves/reload/delete>");
             return true;
         }
-        ISubCommand subCommand = subCommandMap.get(args[0].toLowerCase());
+        MCSubCommand subCommand = subCommandMap.get(args[0].toLowerCase());
         if (subCommand == null) {
             sender.sendMessage(ChatColor.DARK_RED + "Unknown subcommand!\n"+ChatColor.RED+"Usage: /dtm <save/saves/reload>");
             return true;

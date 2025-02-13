@@ -1,13 +1,19 @@
 package com.github.buoyy.dtm.utils;
+import com.github.buoyy.dtm.commands.discord.DiscordCommandListener;
 import com.github.buoyy.dtm.commands.mc.*;
 import com.github.buoyy.dtm.utils.files.CustomYAML;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import net.dv8tion.jda.api.entities.Guild;
 import net.dv8tion.jda.api.entities.channel.concrete.TextChannel;
+import net.dv8tion.jda.api.interactions.IntegrationType;
+import net.dv8tion.jda.api.interactions.InteractionContextType;
+import net.dv8tion.jda.api.interactions.commands.OptionType;
+import net.dv8tion.jda.api.interactions.commands.build.Commands;
 import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.JDABuilder;
 import net.dv8tion.jda.api.requests.GatewayIntent;
+import net.dv8tion.jda.api.requests.restaction.CommandListUpdateAction;
 
 import com.github.buoyy.dtm.listeners.discord.DiscordChatListener;
 import com.github.buoyy.dtm.listeners.mc.MCPlayerEventListener;
@@ -85,8 +91,9 @@ public class MainManager {
     }
 
     // Might add more events
-    public void registerDiscordEvents() {
+    public void registerDiscordEvents(CustomYAML yaml) {
         jda.addEventListener(new DiscordChatListener(guild, chatChannel, plugin.getConfig()));
+        jda.addEventListener(new DiscordCommandListener(yaml));
     }
 
     // Check the corresponding classes for more info
@@ -96,12 +103,26 @@ public class MainManager {
     }
 
     // TODO: Add more useful commands to connect player with plugin
-    public void registerMCCommands(CustomYAML config) {
+    public void registerMCCommands(CustomYAML yaml) {
         MCCommandHandler handler = new MCCommandHandler();
-        handler.registerSubCommand("save", new MCCommandSave(config));
-        handler.registerSubCommand("saves", new MCCommandSaves(config.getConfig()));
-        handler.registerSubCommand("reload", new MCCommandReload(plugin, config));
-        handler.registerSubCommand("delete", new MCCommandDelete(config));
+        handler.registerSubCommand("save", new MCCommandSave(yaml));
+        handler.registerSubCommand("saves", new MCCommandSaves(yaml));
+        handler.registerSubCommand("reload", new MCCommandReload(plugin, yaml));
+        handler.registerSubCommand("delete", new MCCommandDelete(yaml));
         Objects.requireNonNull(plugin.getCommand("dtm")).setExecutor(handler);
+    }
+
+    public void registerDiscordCommands() {
+        CommandListUpdateAction commands = jda.updateCommands();
+        commands.addCommands(Commands.slash("plist", "List all currently online players.")
+                        .setContexts(InteractionContextType.GUILD)
+                        .setIntegrationTypes(IntegrationType.GUILD_INSTALL));
+        commands.addCommands(Commands.slash("saves", "List all current location saves.")
+                        .setContexts(InteractionContextType.GUILD)
+                        .setIntegrationTypes(IntegrationType.GUILD_INSTALL));
+        commands.addCommands(Commands.slash("saveinfo", "Sends info of given location save.")
+                        .addOption(OptionType.STRING, "name", "which save to get info from.", true)
+                        .setContexts(InteractionContextType.GUILD));
+        commands.queue();
     }
 }

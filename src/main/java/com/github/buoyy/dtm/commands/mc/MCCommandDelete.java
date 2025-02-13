@@ -4,7 +4,7 @@ import com.github.buoyy.dtm.utils.files.CustomYAML;
 import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
 
-public class MCCommandDelete implements ISubCommand {
+public class MCCommandDelete implements MCSubCommand {
     private final CustomYAML config;
     public MCCommandDelete(CustomYAML saves) {
         this.config = saves;
