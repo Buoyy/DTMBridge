@@ -51,8 +51,8 @@ public class DiscordCommandListener extends ListenerAdapter {
                     event.reply("**This command is admin-only!**");
                     return;
                 }
+                event.reply("***Stopping the server...***").queue();
                 Bukkit.getServer().shutdown();
-                event.reply("***Stopping server...");
             }
             default -> { return; }
         }
