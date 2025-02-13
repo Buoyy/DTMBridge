@@ -8,6 +8,7 @@ import org.bukkit.entity.Player;
 
 import com.github.buoyy.dtm.utils.files.CustomYAML;
 
+import net.dv8tion.jda.api.Permission;
 import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
 
@@ -22,27 +23,38 @@ public class DiscordCommandListener extends ListenerAdapter {
             case "plist" -> {
                 String plist = "";
                 for (Player p : Bukkit.getServer().getOnlinePlayers()) {
-                    plist += p.getDisplayName() +'\n';
+                    plist += "\t*" + p.getDisplayName() + "*\n";
                 }
-                event.reply("The following players are currently online:\n"+plist).queue();
+                event.reply("**The following players are currently online:**\n"+plist).queue();
             }
             case "saves" -> {
                 String saves = "";
                 for (String i : config.getKeys(false)) {
-                    saves += i + '\n';
+                    saves += "\t*" + i + "*\n";
                 }
-                event.reply("The following locations are currently saved:\n"+saves).queue();
+                event.reply("**The following locations are currently saved:**\n"+saves).queue();
             }
             case "saveinfo" -> {
                 String key = event.getOption("name").getAsString();
+                if (config.contains(key)) {
                 List<Integer> coords = config.getIntegerList(key+".coords");
-                String msg = "Info for location "+key+":\n"
-                            +"World: "+config.getString(key+".world")+'\n'
-                            +"Coordinates: "+coords.get(0)+','+coords.get(1)+','+coords.get(2);
+                String msg = "**Info for location "+key+":\n**"
+                            +"\t*World:* ***"+config.getString(key+".world")+"***\n"
+                            +"\t*Coordinates:* ***"+coords.get(0)+", "+coords.get(1)+", "+coords.get(2)+"***";
                 event.reply(msg).queue();
+                } else {
+                    event.reply("**No such location was found.**").queue();
+                }
+            }
+            case "stop" -> {
+                if (!event.getMember().hasPermission(Permission.ADMINISTRATOR)) {
+                    event.reply("**This command is admin-only!**");
+                    return;
+                }
+                Bukkit.getServer().shutdown();
+                event.reply("***Stopping server...");
             }
             default -> { return; }
         }
     }
-
 }

@@ -20,7 +20,7 @@ public class MCCommandSaves implements MCSubCommand {
                     List<Integer> coords = config.getIntegerList(args[1]+".coords");
                     sender.sendMessage(ChatColor.AQUA+"Info for location "+ChatColor.GREEN+args[1]+':');
                     sender.sendMessage(ChatColor.DARK_GREEN+"World: "+ChatColor.BLUE+config.getString(args[1]+".world"));
-                    sender.sendMessage(ChatColor.DARK_GREEN+"Coordinates: "+ChatColor.BLUE+coords.get(0)+','+coords.get(1)+','+coords.get(2));
+                    sender.sendMessage(ChatColor.DARK_GREEN+"Coordinates: "+ChatColor.BLUE+coords.get(0)+", "+coords.get(1)+", "+coords.get(2));
                 }
         } else if (args.length == 1) {
             sender.sendMessage(ChatColor.GREEN+"The following saves are currently available: ");
