@@ -95,7 +95,7 @@ public class MainManager {
     // Might add more events
     public void registerDiscordEvents(CustomYAML yaml) {
         jda.addEventListener(new DiscordChatListener(guild, chatChannel, plugin.getConfig()));
-        jda.addEventListener(new DiscordCommandListener(yaml));
+        jda.addEventListener(new DiscordCommandListener(plugin, jda));
     }
 
     // Check the corresponding classes for more info
@@ -107,10 +107,10 @@ public class MainManager {
     // TODO: Add more useful commands to connect player with plugin
     public void registerMCCommands(CustomYAML yaml) {
         MCCommandHandler handler = new MCCommandHandler();
-        handler.registerSubCommand("save", new MCCommandSave(yaml));
+        handler.registerSubCommand("save", new MCCommandAddSave(yaml));
         handler.registerSubCommand("saves", new MCCommandSaves(yaml));
         handler.registerSubCommand("reload", new MCCommandReload(plugin, yaml));
-        handler.registerSubCommand("delete", new MCCommandDelete(yaml));
+        handler.registerSubCommand("delete", new MCCommandDeleteSave(yaml));
         Objects.requireNonNull(plugin.getCommand("dtm")).setExecutor(handler);
     }
 

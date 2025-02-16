@@ -10,6 +10,10 @@ import java.io.IOException;
 public class CustomYAML {
     private File file;
     private FileConfiguration config;
+
+    public CustomYAML(String filename) {
+        setup(filename);
+    }
     public FileConfiguration getConfig() {
         return config;
     }
@@ -23,7 +27,7 @@ public class CustomYAML {
     public void reload() {
         config = YamlConfiguration.loadConfiguration(file);
     }
-    public void setup(String name) {
+    private void setup(String name) {
         file = new File(Bukkit.getServer().getPluginManager().getPlugin("DTMBridge").getDataFolder(), name+".yml");
         if (!file.exists()) {
             try {

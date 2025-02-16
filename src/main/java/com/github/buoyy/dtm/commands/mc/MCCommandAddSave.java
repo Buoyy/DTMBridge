@@ -9,9 +9,9 @@ import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
-public class MCCommandSave implements MCSubCommand {
+public class MCCommandAddSave implements MCSubCommand {
     private final CustomYAML saves;
-    public MCCommandSave(CustomYAML saves) {
+    public MCCommandAddSave(CustomYAML saves) {
         this.saves = saves;
     }
     @Override
@@ -25,9 +25,9 @@ public class MCCommandSave implements MCSubCommand {
             return true;
         }
         List<Integer> coords = Arrays.asList(player.getLocation().getBlockX(), player.getLocation().getBlockY(), player.getLocation().getBlockZ());
-        saves.getConfig().addDefault(args[1]+".world", player.getWorld().getName());
-        saves.getConfig().addDefault(args[1]+".coords", coords);
-        player.sendMessage(ChatColor.GREEN+args[1]+ChatColor.AQUA+" has been saved as location!");
+        saves.getConfig().addDefault(args[2]+".world", player.getWorld().getName());
+        saves.getConfig().addDefault(args[2]+".coords", coords);
+        player.sendMessage(ChatColor.GREEN+args[2]+ChatColor.AQUA+" has been saved as location!");
         saves.save();
         return true;
     }

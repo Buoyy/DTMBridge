@@ -6,10 +6,9 @@ import org.bukkit.plugin.java.JavaPlugin;
 
 public class DTMBridge extends JavaPlugin {
     private MainManager manager;
+    private final static CustomYAML locations = new CustomYAML("locations");
     @Override
     public void onEnable() {
-        CustomYAML locations = new CustomYAML();
-        locations.setup("locations");
         locations.getConfig().options().copyDefaults(true);
         locations.save();
         saveDefaultConfig();
@@ -33,5 +32,8 @@ public class DTMBridge extends JavaPlugin {
     @Override
     public void onDisable() {
         manager.shutdownJDA();
+    }
+    public static CustomYAML getLocationsYaml() {
+        return locations;
     }
 }

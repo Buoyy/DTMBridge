@@ -1,34 +1,34 @@
 package com.github.buoyy.dtm.commands.mc;
 
-import java.util.List;
+import java.util.HashMap;
+import java.util.Map;
 
 import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
-import org.bukkit.configuration.file.FileConfiguration;
 
 import com.github.buoyy.dtm.utils.files.CustomYAML;
 
 public class MCCommandSaves implements MCSubCommand {
-    private final FileConfiguration config;
+    private final Map<String, MCSubCommand> subSubs = new HashMap<>();
     public MCCommandSaves(CustomYAML yaml) {
-        this.config = yaml.getConfig();
+        subSubs.put("add", new MCCommandAddSave(yaml));
+        subSubs.put("delete", new MCCommandDeleteSave(yaml));
+        subSubs.put("list", new MCCommandListSaves(yaml));
+        subSubs.put("info", new MCCommandSavesInfo(yaml));
     }
     @Override
     public boolean execute(CommandSender sender, String[] args) {
-        if (args.length == 2) {
-                if (config.contains(args[1])) {
-                    List<Integer> coords = config.getIntegerList(args[1]+".coords");
-                    sender.sendMessage(ChatColor.AQUA+"Info for location "+ChatColor.GREEN+args[1]+':');
-                    sender.sendMessage(ChatColor.DARK_GREEN+"World: "+ChatColor.BLUE+config.getString(args[1]+".world"));
-                    sender.sendMessage(ChatColor.DARK_GREEN+"Coordinates: "+ChatColor.BLUE+coords.get(0)+", "+coords.get(1)+", "+coords.get(2));
-                }
-        } else if (args.length == 1) {
-            sender.sendMessage(ChatColor.GREEN+"The following saves are currently available: ");
-            for (String i : config.getKeys(false)) {
-                sender.sendMessage(ChatColor.AQUA+i);
-            }
-            sender.sendMessage(ChatColor.GREEN+"To see info on any one of these, do:\n"+ChatColor.AQUA+"/dtm saves <name>");
+        if (args.length < 2) {
+            sender.sendMessage(ChatColor.GREEN+"Usage: /dtm saves <add/list/info/delete>");
+            return true;
         }
+        MCSubCommand subSub = subSubs.get(args[1].toLowerCase());
+        if (subSub == null) {
+            sender.sendMessage(ChatColor.DARK_RED + "Unknown subcommand!\n"+ChatColor.RED+"Usage: /dtm saves <add/list/info/delete>");
+            return true;
+        }
+        subSub.execute(sender, args);
         return true;
     }
+    
 }
