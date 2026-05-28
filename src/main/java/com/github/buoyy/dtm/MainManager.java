@@ -1,7 +1,5 @@
 package com.github.buoyy.dtm;
 
-import org.bukkit.ChatColor;
-
 import com.github.buoyy.dtm.commands.ReloadCommand;
 import com.github.buoyy.dtm.listeners.discord.DiscordChatListener;
 import com.github.buoyy.dtm.listeners.minecraft.MinecraftAdvancementListener;
@@ -142,11 +140,6 @@ public class MainManager
     }
 
 // ----------------------------------------------------------------------------------------------------------------
-
-    public static String stripColorCodes(String message) 
-    {
-        return ChatColor.stripColor(ChatColor.translateAlternateColorCodes('&', message));
-    }
 
     public Guild getGuild() 
     {

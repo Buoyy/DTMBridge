@@ -7,10 +7,11 @@ import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
 
 import com.github.buoyy.dtm.MainManager;
+import com.github.buoyy.spigot_utils.Utils;
 
 import net.dv8tion.jda.api.entities.channel.concrete.TextChannel;
 
-// TODO: Update channel topic thingy
+// TODO: Fix channel topic thingy
 public class MinecraftLoginListener implements Listener
 {
     private final TextChannel chatChannel;
@@ -29,7 +30,7 @@ public class MinecraftLoginListener implements Listener
     @EventHandler
     public void onPlayerJoin(PlayerJoinEvent event)
     {
-        String msg = MainManager.stripColorCodes(joinMsg.replace("{player}", event.getPlayer().getDisplayName()));
+        String msg = Utils.stripColorCodes(joinMsg.replace("{player}", event.getPlayer().getDisplayName()));
         chatChannel.sendMessage(msg).queue();
         updateTopic();
     }
@@ -37,7 +38,7 @@ public class MinecraftLoginListener implements Listener
     @EventHandler
     public void onPlayerQuit(PlayerQuitEvent event)
     {
-        String msg = MainManager.stripColorCodes(quitMsg.replace("{player}", event.getPlayer().getDisplayName()));
+        String msg = Utils.stripColorCodes(quitMsg.replace("{player}", event.getPlayer().getDisplayName()));
         chatChannel.sendMessage(msg).queue();
         updateTopic();
     }

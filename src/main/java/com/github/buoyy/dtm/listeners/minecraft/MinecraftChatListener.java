@@ -4,6 +4,7 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.player.AsyncPlayerChatEvent;
 
 import com.github.buoyy.dtm.MainManager;
+import com.github.buoyy.spigot_utils.Utils;
 
 import net.dv8tion.jda.api.entities.channel.concrete.TextChannel;
 
@@ -22,7 +23,7 @@ public class MinecraftChatListener implements org.bukkit.event.Listener
     public void onPlayerChat(AsyncPlayerChatEvent event)
     {
         String msg = mcChatMsg.replace("{player}", event.getPlayer().getDisplayName()).replace("{msg}", event.getMessage());
-        msg = MainManager.stripColorCodes(msg);
+        msg = Utils.stripColorCodes(msg);
         chatChannel.sendMessage(msg).queue();
     }
 }
