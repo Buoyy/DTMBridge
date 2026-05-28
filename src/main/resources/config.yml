@@ -1,14 +1,12 @@
-#Your chosen discord bot's token goes here. Don't share it with ANYONE.
+# Your Discord bot's bot token. DON'T SHARE WITH ANYONE.
 bot-token: ""
-#The Discord server to connect to. This setting helps when you have
-#the same bot in multiple servers.
+
+# The ID of the Discord Server (Guild) to connect to.
 guild-id: ""
-#The channel to write to and read messages from.
-chat-channel-id: ""
-# Use this only if you wish use console integration
-enable-console: false
-# The channel to write to and read the console from (LEAVE EMPTY IF YOU PLAN NOT TO USE CONSOLE INTEGRATION)
-console-channel-id: ""
+
+# The ID of the Text Channel to write to and read messages to.
+chat-ch-id: ""
+
 # MESSAGE CUSTOMIZATION
 # NOTE: {player} -> player name, {adv} -> advancement name
 # {msg} -> message name
@@ -31,4 +29,12 @@ stop-msg: "Server has been **stopped**.🛑"
 join-msg: "📥***{player}*** *just joined the server!*"
 quit-msg: "📤***{player}*** *has left the server.*"
 adv-msg: "⛏️***{player}*** *has completed the advancement* ***{adv}*** *!*"
-dc-death-msg: "⚰️***{player}*** *died!*"
+
+# Notification sound (in-game)
+notif:
+  sound: ENTITY_EXPERIENCE_ORB_PICKUP
+  volume: 0.15
+  pitch: 1.16
+
+# Discord Chat Channel Topic
+dc-topic: "{players_online} of {player_limit} players online"
